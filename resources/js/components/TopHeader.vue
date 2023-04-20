@@ -133,7 +133,7 @@
 </template>
 
 <script>
-import resize from "../../../public/backend/plugins/uplot/uPlot.esm";
+
 import axios from "axios";
 
 export default {

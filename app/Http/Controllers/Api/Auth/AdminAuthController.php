@@ -27,18 +27,20 @@ class AdminAuthController extends Controller
             'password' => 'required|confirmed|min:6'
         ]);
 
-        $admin = Admin::insert([
+        $admin = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
 
-        if ($admin === true){
 
-            $token = Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password]);
+
+        $token = Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password]);
+        if ($token){
             return $this->respondWithToken($token);
-
         }
+
+
 
     }
 
