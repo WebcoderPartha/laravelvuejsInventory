@@ -69,7 +69,7 @@
             </a>
           </div>
 
-          <a href="login.html" class="text-center">I already have a membership</a>
+          <router-link :to="{name:'login'}" class="text-center">I already have a membership</router-link>
         </div>
         <!-- /.form-box -->
       </div><!-- /.card -->
