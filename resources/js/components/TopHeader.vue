@@ -1,5 +1,5 @@
 <template>
-  <nav class="main-header navbar navbar-expand navbar-dark">
+  <nav class="main-header navbar navbar-expand navbar-dark" v-show="this.$route.path === '/' || this.$route.path === '/register' ? false : true " id="topheader" style="display: none">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -145,7 +145,8 @@ export default {
           localStorage.removeItem('token')
           localStorage.removeItem('userid');
           Notification.success(res.data)
-          this.$router.push({name:'login'})
+          // this.$router.push({name:'login'})
+          window.location.href = '/';
         })
       }
     }

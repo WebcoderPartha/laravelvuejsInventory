@@ -14,7 +14,7 @@
     <MenuBar />
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="contentWrapper" style="margin-left: 0">
       <router-view></router-view>
     </div>
     <!-- /.content-wrapper -->
@@ -29,6 +29,12 @@
 </template>
 
 <script>
+$(document).ready(function (){
+  let token = localStorage.getItem('token');
+  if (token){
+    $('#contentWrapper').css('margin-left', '')
+  }
+})
 import TopHeader from "./components/TopHeader.vue";
 import MenuBar from "./components/MenuBar.vue";
 import Footer from "./components/Footer.vue";

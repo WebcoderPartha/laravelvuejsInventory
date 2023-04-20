@@ -22,7 +22,7 @@
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body id="body" v-show="!(this.$route.path === '/' || this.$route.path === '/register')">
 <div id="app">
 
 </div>
@@ -51,6 +51,17 @@
 {{--<script src="{{ asset('backend/dist/js/demo.js') }}"></script>--}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('backend/dist/js/pages/dashboard2.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function (){
+        let token = localStorage.getItem('token');
+        console.log(token)
+        if (token){
+            $('#topheader').css('display', '')
+            $('#body').addClass('hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed')
+        }
+    })
+
+</script>
 </body>
 </html>
 

@@ -93,8 +93,9 @@ export default {
           .then(response => {
 
             User.responseAfterLogin(response.data.access_token, response.data.userId)
-            this.$router.push({name: 'dashboard'})
+            // this.$router.push({name: 'dashboard'})
             Notification.success('Register successfully!')
+            window.location.href = '/dashboard'
 
           }).catch(error =>{
             console.log(error.response)

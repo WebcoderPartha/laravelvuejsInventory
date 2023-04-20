@@ -82,7 +82,8 @@ export default {
       axios.post('/auth/login', this.form)
           .then(res => {
             User.responseAfterLogin(res.data.access_token, res.data.userId);
-            this.$router.push({name:'dashboard'})
+            // this.$router.push({name:'dashboard'})
+            window.location.href = '/dashboard'
             Notification.success('Login successfully');
           }).catch(error => {
             console.log(error.response.data)
