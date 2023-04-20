@@ -7,13 +7,14 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 
 class AdminAuthController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth:admin')->except(['Register']);
+        $this->middleware('auth:admin')->except(['Register', 'Login']);
     }
 
 
@@ -39,6 +40,36 @@ class AdminAuthController extends Controller
         }
 
     }
+
+    public function Login(Request $request){
+
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if ($token = Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])){
+
+            return $this->respondWithToken($token);
+
+        }else{
+            return Response::json('Invalid Email or Password!');
+        }
+
+
+    }
+
+    public function Logout(){
+
+        Auth::guard('admin')->logout();
+        return Response::json('Logout successfully!');
+
+    }
+
+    public function getAuthUser(){
+        return Response::json(Auth::guard('admin')->user());
+    }
+
 
     protected function respondWithToken($token)
     {
