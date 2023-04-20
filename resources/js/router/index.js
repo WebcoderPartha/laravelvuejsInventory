@@ -9,9 +9,9 @@ const router = createRouter({
             component:()=> import('../components/Login.vue')
         },
         {
-            path: '/contact',
-            name: 'contact',
-            component:()=> import('../components/ExampleComponent.vue')
+            path: '/register',
+            name: 'register',
+            component:()=> import('../components/Register.vue')
         }
     ]
 
