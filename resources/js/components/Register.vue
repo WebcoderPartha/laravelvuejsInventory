@@ -17,6 +17,7 @@
                 </div>
               </div>
             </div>
+            <small class="text-red" v-if="this.errors.name">{{ this.errors.name[0] }}</small>
             <div class="input-group mb-3">
               <input type="email" v-model="form.email" class="form-control" placeholder="Email">
               <div class="input-group-append">
@@ -25,6 +26,7 @@
                 </div>
               </div>
             </div>
+            <small class="text-red" v-if="this.errors.email">{{ this.errors.email[0] }}</small>
             <div class="input-group mb-3">
               <input type="password" v-model="form.password" class="form-control" placeholder="Password">
               <div class="input-group-append">
@@ -33,6 +35,7 @@
                 </div>
               </div>
             </div>
+            <small class="text-red" v-if="this.errors.password">{{ this.errors.password[0] }}</small>
             <div class="input-group mb-3">
               <input type="password" v-model="form.password_confirmation" class="form-control" placeholder="Retype password">
               <div class="input-group-append">
@@ -41,6 +44,7 @@
                 </div>
               </div>
             </div>
+            <small class="text-red" v-if="this.errors.password_confirmation">{{ this.errors.password_confirmation[0] }}</small>
             <div class="row">
 
               <!-- /.col -->
@@ -75,7 +79,8 @@ export default {
         email: null,
         password: null,
         password_confirmation: null,
-      }
+      },
+      errors: {}
     }
   },
   created() {
@@ -98,7 +103,7 @@ export default {
             window.location.href = '/dashboard'
 
           }).catch(error =>{
-            console.log(error.response)
+            this.errors = error.response.data.errors
       })
     }
   }

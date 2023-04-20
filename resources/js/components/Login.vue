@@ -18,6 +18,7 @@
                 </div>
               </div>
             </div>
+            <small class="text-red" v-if="this.errors.email">{{ this.errors.email[0] }}</small>
             <div class="input-group mb-3">
               <input type="password"  v-model="form.password" class="form-control" placeholder="Password">
               <div class="input-group-append">
@@ -26,18 +27,13 @@
                 </div>
               </div>
             </div>
+            <small class="text-red" v-if="this.errors.password">{{ this.errors.password[0] }}</small>
             <div class="row">
-              <div class="col-8">
-                <div class="icheck-primary">
-                  <input type="checkbox" id="remember">
-                  <label for="remember">
-                    Remember Me
-                  </label>
-                </div>
-              </div>
               <!-- /.col -->
-              <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+              <div class="col-4 mx-auto">
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
               </div>
               <!-- /.col -->
             </div>
@@ -45,10 +41,10 @@
 
 
 
-          <p class="mb-1">
+          <p class="mb-1 text-center">
             <a href="forgot-password.html">I forgot my password</a>
           </p>
-          <p class="mb-0">
+          <p class="mb-0 text-center">
             <router-link :to="{name:'register'}" class="text-center">Register a new membership</router-link>
           </p>
         </div>
@@ -71,7 +67,8 @@ export default {
       form: {
         email: null,
         password: null
-      }
+      },
+      errors: {}
     }
   },
   created() {
@@ -86,7 +83,7 @@ export default {
             window.location.href = '/dashboard'
             Notification.success('Login successfully');
           }).catch(error => {
-            console.log(error.response.data)
+            this.errors = error.response.data.errors
       })
     },
     authenticate(){

@@ -24,7 +24,8 @@ class AdminAuthController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:admins,email',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required'
         ]);
 
         $admin = Admin::create([
