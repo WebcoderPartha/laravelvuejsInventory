@@ -123,8 +123,8 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
+        <a @click="logout" title="Sign out" class="nav-link" role="button">
+          <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>
 
@@ -133,8 +133,23 @@
 </template>
 
 <script>
+import resize from "../../../public/backend/plugins/uplot/uPlot.esm";
+import axios from "axios";
+
 export default {
-  name: "TopHeader"
+  name: "TopHeader",
+  methods:{
+    logout(){
+      if (User.authenticate()){
+        axios.get('/auth/logout').then(res=> {
+          localStorage.removeItem('token')
+          localStorage.removeItem('userid');
+          Notification.success(res.data)
+          this.$router.push({name:'login'})
+        })
+      }
+    }
+  }
 }
 </script>
 

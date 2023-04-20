@@ -9,5 +9,6 @@ Route::prefix('auth')->controller(AdminAuthController::class)->group(function ()
     Route::post('/register', 'Register');
     Route::get('/me', 'getAuthUser');
     Route::post('/login', 'Login');
-    Route::post('/logout', 'Logout');
+    Route::get('/logout', 'Logout');
+    Route::get('/user/{id}', 'userbyId');
 });

@@ -15,6 +15,8 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "noty": "^3.2.0-beta-deprecated",
+        "sweetalert2": "^11.7.3",
         "vue-router": "^4.1.6"
     }
 }

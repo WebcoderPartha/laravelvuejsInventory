@@ -79,17 +79,18 @@ export default {
   },
   methods: {
     Login(){
-      axios.post('/api/auth/login', this.form)
+      axios.post('/auth/login', this.form)
           .then(res => {
-            console.log(res.data.userId);
-            User.responseAfterLogin(res.data.access_token, res.data.userId)
+            User.responseAfterLogin(res.data.access_token, res.data.userId);
+            this.$router.push({name:'dashboard'})
+            Notification.success('Login successfully');
           }).catch(error => {
             console.log(error.response.data)
       })
     },
     authenticate(){
       if (User.authenticate()){
-        return this.$router.push({name:'register'})
+        this.$router.push({name:'dashboard'})
       }
     }
   }

@@ -80,7 +80,27 @@
 
 <script>
 export default {
-  name: "Register"
+  name: "Register",
+  data(){
+    return {
+      form: {
+        name: null,
+        email: null,
+        password: null,
+        password_confirmation: null,
+      }
+    }
+  },
+  created() {
+    this.authentication()
+  },
+  methods: {
+    authentication(){
+      if (User.authenticate()){
+        return this.$router.push({name: 'dashboard'})
+      }
+    }
+  }
 }
 </script>
 

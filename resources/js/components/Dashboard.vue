@@ -858,7 +858,19 @@
 
 <script>
 export default {
-  name: "Dashboard"
+  name: "Dashboard",
+  created() {
+    this.authentication();
+  },
+  methods: {
+    authentication(){
+      if (!User.authenticate()){
+        return this.$router.push({
+          name: 'login'
+        });
+      }
+    }
+  }
 }
 </script>
 

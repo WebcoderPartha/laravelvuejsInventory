@@ -14,7 +14,7 @@ class User {
     }
 
     hasToken(){
-        const getToken = sessionStorage.getItem('token')
+        const getToken = localStorage.getItem('token')
         if (getToken){
             if (Token.isValidate(getToken)){
                 return true

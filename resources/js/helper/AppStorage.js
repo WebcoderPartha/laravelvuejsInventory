@@ -1,11 +1,11 @@
 class AppStorage {
 
     storeToken(token){
-        sessionStorage.setItem('token', token);
+        localStorage.setItem('token', token);
     }
 
     storeUserId(userid){
-        sessionStorage.setItem('userid', userid);
+        localStorage.setItem('userid', userid);
     }
 
     storeAuthUser(token, userid){
@@ -14,15 +14,15 @@ class AppStorage {
     }
 
     clearAuthUser(){
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('userid');
+        localStorage.removeItem('token');
+        localStorage.removeItem('userid');
     }
 
     getToken(){
-        sessionStorage.getItem('token');
+        localStorage.getItem('token');
     }
     getUserId(){
-        sessionStorage.getItem('userid');
+        localStorage.getItem('userid');
     }
 
     // Authenticate(){
