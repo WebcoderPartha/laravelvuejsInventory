@@ -14,7 +14,8 @@ class AdminAuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:admin')->except(['Register', 'Login']);
+//        $this->middleware('auth:admin')->except(['Register', 'Login']);
+        $this->middleware('jwtAuth')->except(['Register', 'Login']);
     }
 
 
