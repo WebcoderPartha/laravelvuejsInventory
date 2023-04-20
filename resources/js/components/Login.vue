@@ -62,7 +62,7 @@
 
 <script>
 
-import AppStorage from "../helper/AppStorage";
+
 
 export default {
   name: "Login",
@@ -82,13 +82,13 @@ export default {
       axios.post('/api/auth/login', this.form)
           .then(res => {
             console.log(res.data.userId);
-            AppStorage.storeAuthUser(res.data.access_token, res.data.userId);
+            User.responseAfterLogin(res.data.access_token, res.data.userId)
           }).catch(error => {
             console.log(error.response.data)
       })
     },
     authenticate(){
-      if (AppStorage.Authenticate()){
+      if (User.authenticate()){
         return this.$router.push({name:'register'})
       }
     }

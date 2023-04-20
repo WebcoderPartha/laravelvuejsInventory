@@ -25,11 +25,11 @@ class AppStorage {
         sessionStorage.getItem('userid');
     }
 
-    Authenticate(){
-        if (sessionStorage.getItem('token') !== null && sessionStorage.getItem('userid') !== null){
-            return true;
-        }
-    }
+    // Authenticate(){
+    //     if (sessionStorage.getItem('token') !== null && sessionStorage.getItem('userid') !== null){
+    //         return true;
+    //     }
+    // }
 
 }
 
