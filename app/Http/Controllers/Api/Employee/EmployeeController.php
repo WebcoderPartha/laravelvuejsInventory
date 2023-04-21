@@ -85,23 +85,81 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $employee = Employee::find($id);
+        return Response::json($employee);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $employee = Employee::find($id);
+
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:employees,email,'.$employee->id,
+            'phone' => 'required',
+            'address' => 'required',
+            'salary' => 'required',
+            'nid' => 'required',
+            'joining_date' => 'required'
+        ]);
+
+        if ($file = $request->new_photo){
+
+            $position = strpos($request->new_photo, ';');
+            $sub = substr($request->new_photo, 0, $position);
+            $extension = explode('/', $sub)[1];
+
+            $photo = time().'-employee'.'.'.$extension;
+            $directory = 'uploads/employee/';
+
+            Image::make($request->new_photo)->resize(300, 300)->save(public_path($directory.$photo));
+
+
+
+
+            // IF Image Exist in the folder
+            if ($employee->photo !== null){
+                if (file_exists(public_path($employee->photo))){
+                    unlink(public_path($employee->photo));
+                }
+
+            }
+
+
+            $employee->photo = $directory.$photo;
+            $employee->name = $request->name;
+            $employee->email = $request->email;
+            $employee->phone = $request->phone;
+            $employee->address = $request->address;
+            $employee->salary = $request->salary;
+            $employee->nid = $request->nid;
+            $employee->joining_date = date('Y-m-d', strtotime($request->joining_date));
+            $employee->save();
+
+            return Response::json('Employee updated successfully');
+
+        }else{
+
+            $employee->name = $request->name;
+            $employee->email = $request->email;
+            $employee->phone = $request->phone;
+            $employee->address = $request->address;
+            $employee->salary = $request->salary;
+            $employee->nid = $request->nid;
+            $employee->joining_date = date('Y-m-d', strtotime($request->joining_date));
+            $employee->save();
+
+            return Response::json('Employee updated successfully');
+
+        }
     }
 
     /**
@@ -109,6 +167,20 @@ class EmployeeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $employee = Employee::find($id);
+
+        if ($employee->photo !== null){
+            if (file_exists(public_path($employee->photo))){
+                unlink(public_path($employee->photo));
+                $employee->delete();
+
+            }else{
+                $employee->delete();
+            }
+        }
+
+        $employee->delete();
+        return Response::json('Employee deleted successfully');
+
     }
 }

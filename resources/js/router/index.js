@@ -32,6 +32,11 @@ const router = createRouter({
             path: '/employee/list',
             name: 'list_employee',
             component:()=> import('../components/Employee/EmployeeList.vue')
+        },
+        {
+            path: '/employee/edit/:id',
+            name: 'edit_employee',
+            component:()=> import('../components/Employee/Edit.vue')
         }
 
     ]

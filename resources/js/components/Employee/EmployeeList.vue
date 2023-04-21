@@ -22,7 +22,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Bordered Table</h3>
+                <h3 class="card-title"><router-link class="btn btn-sm btn-info" :to="{name:'add_employee'}">Add Employee</router-link></h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -38,6 +38,7 @@
                     <th>Salary</th>
                     <th>Join Date</th>
                     <th>Image</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -51,6 +52,10 @@
                     <td>{{employee.salary }}</td>
                     <td>{{employee.joining_date }}</td>
                     <td><img :src="imagePath(employee.photo)" width="40" alt=""></td>
+                    <td>
+                      <router-link class="btn btn-sm btn-primary" :to="{name:'edit_employee', params:{id:employee.id}}"><i class="fa fa-edit"></i></router-link>
+                      || <button @click.prevent="deleteEmployee(employee.id)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                    </td>
                   </tr>
                   </tbody>
                 </table>
@@ -101,9 +106,33 @@ export default {
 
       })
     },
+    deleteEmployee(id){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete('/employee/'+id).then(response => {
+            this.employees = this.employees.filter(employee => {
+              return employee.id !== id
+            })
+          })
+          Swal.fire(
+              'Deleted!',
+              'Employee has been deleted.',
+              'success'
+          )
+        }
+      })
+    },
     imagePath(value){
       return value ?  '/'+value : null
-    }
+    },
   }
 }
 </script>
