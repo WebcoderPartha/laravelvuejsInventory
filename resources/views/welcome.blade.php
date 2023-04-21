@@ -54,7 +54,6 @@
 <script type="text/javascript">
     $(document).ready(function (){
         let token = localStorage.getItem('token');
-        console.log(token)
         if (token){
             $('#topheader').css('display', '')
             $('#body').addClass('hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed')

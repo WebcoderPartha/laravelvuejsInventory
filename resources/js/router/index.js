@@ -22,6 +22,16 @@ const router = createRouter({
             path: '/logout',
             name: 'logout',
             component:()=> import('../components/Logout.vue')
+        },
+        {
+            path: '/employee/add',
+            name: 'add_employee',
+            component:()=> import('../components/Employee/create.vue')
+        },
+        {
+            path: '/employee/list',
+            name: 'list_employee',
+            component:()=> import('../components/Employee/EmployeeList.vue')
         }
 
     ]
