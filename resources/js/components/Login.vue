@@ -83,7 +83,7 @@ export default {
             window.location.href = '/dashboard'
             Notification.success('Login successfully');
           }).catch(error => {
-            this.errors = error.response.data.errors
+            this.errors = error.response.data ? error.response.data.errors : null
       })
     },
     authenticate(){

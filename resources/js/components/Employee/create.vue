@@ -29,7 +29,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="">
+              <form @submit.prevent="storeEmployee">
 
                 <div class="card-body">
 
@@ -37,9 +37,9 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="name">Name</label>
                     </div>
-                    <input type="text" class="form-control" v-model="this.form.name" id="name" placeholder="Name">
+                    <input type="text" class="form-control" v-model="form.name" id="name" placeholder="Name">
                   </div>
-                  <small v-if="this.errors.name">{{ this.errors.name[0] }}</small>
+                  <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>
 
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -47,7 +47,7 @@
                     </div>
                     <input type="email" class="form-control" v-model="form.email" id="email" placeholder="Email">
                   </div>
-                  <small v-if="this.errors.email">{{ this.errors.email[0] }}</small>
+                  <small class="text-red" v-if="errors.email">{{ errors.email[0] }}</small>
 
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -55,7 +55,7 @@
                     </div>
                     <input type="text" class="form-control" v-model="form.phone" id="Phone" placeholder="Phone">
                   </div>
-                  <small v-if="this.errors.phone">{{ this.errors.phone[0] }}</small>
+                  <small class="text-red" v-if="errors.phone">{{ errors.phone[0] }}</small>
 
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -63,7 +63,7 @@
                     </div>
                     <input type="text" class="form-control" v-model="form.salary" id="Salary" placeholder="Salary">
                   </div>
-                  <small v-if="this.errors.salry">{{ this.errors.salary[0] }}</small>
+                  <small class="text-red" v-if="errors.salry">{{ errors.salary[0] }}</small>
 
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -71,7 +71,7 @@
                     </div>
                     <textarea type="text" class="form-control" rows="3" v-model="form.address" id="address" placeholder="Address"></textarea>
                   </div>
-                  <small v-if="this.errors.address">{{ this.errors.address[0] }}</small>
+                  <small class="text-red" v-if="errors.address">{{ errors.address[0] }}</small>
 
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -79,15 +79,15 @@
                     </div>
                     <input type="text" class="form-control" rows="3" v-model="form.nid" id="nid" placeholder="NID">
                   </div>
-                  <small v-if="this.errors.nid">{{ this.errors.nid[0] }}</small>
+                  <small class="text-red" v-if="errors.nid">{{ errors.nid[0] }}</small>
 
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="joining_date">Joining Date</label>
                     </div>
-                    <input type="date" class="form-control" rows="3" v-model="form.joining_date" id="joining_date">
+                    <input  type="date" class="form-control" rows="3" v-model="form.joining_date" id="joining_date">
                   </div>
-                  <small v-if="this.errors.joining_date">{{ this.errors.joining_date[0] }}</small>
+                  <small class="text-red" v-if="errors.joining_date">{{ errors.joining_date[0] }}</small>
 
                   <div class="row">
                     <div class="col-md-6">
@@ -145,7 +145,17 @@ export default {
       errors: {}
     }
   },
+  created() {
+    this.authentication();
+  },
   methods: {
+    authentication(){
+      if (!User.authenticate()){
+        return this.$router.push({
+          name: 'login'
+        });
+      }
+    },
     uploadImage(e){
       let file = e.target.files[0];
       // console.log(file.size)
@@ -154,12 +164,21 @@ export default {
         reader.onload = (event) => {
           this.form.photo = event.target.result
           document.getElementById('showImage').src = event.target.result
-          console.log(this.form.photo)
         };
         reader.readAsDataURL(file);
       }else{
         Notification.error('Image file must be less than 1 MB')
       }
+    },
+
+    storeEmployee(){
+     axios.post('/employee', this.form)
+         .then(response => {
+           this.$router.push({name:'list_employee'})
+           Notification.success(response.data)
+         }).catch(error => {
+           this.errors = error.response.data.errors
+     })
     }
   }
 }
