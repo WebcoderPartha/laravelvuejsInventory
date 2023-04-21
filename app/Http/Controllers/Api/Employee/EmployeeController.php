@@ -183,4 +183,10 @@ class EmployeeController extends Controller
         return Response::json('Employee deleted successfully');
 
     }
+
+//    public function searchEmployee(Request $request){
+//        $keyword = $request->search_keyword;
+//
+//
+//    }
 }

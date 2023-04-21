@@ -22,7 +22,21 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"><router-link class="btn btn-sm btn-info" :to="{name:'add_employee'}">Add Employee</router-link></h3>
+                <h3 class="card-title"><router-link class="btn btn-sm btn-info" :to="{name:'add_employee'}">Add Employee</router-link>
+                </h3>
+                <br><br>
+                <div class="row">
+                    <div class="col-md-4 mx-auto">
+<!--                      <form @submit.prevent="SearchEmployee">-->
+                      <div class="input-group">
+                        <input type="text" class="form-control" v-model="search_keyword" placeholder="Search employee">
+                        <button type="submit" class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        </button>
+                      </div>
+<!--                      </form>-->
+                    </div>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -42,7 +56,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="(employee, index) in employees" :key="employee.id">
+                  <tr v-for="(employee, index) in SearchEmployee" :key="employee.id">
                     <td>{{ index+1 }}</td>
                     <td>{{employee.name }}</td>
                     <td>{{employee.email }}</td>
@@ -86,9 +100,26 @@ export default {
     this.authentication();
     this.getEmployee()
   },
+  computed:{
+    SearchEmployee(){
+      return this.employees = this.employees.filter(employee => {
+        if (employee.name.match(this.search_keyword)){
+          return employee.name.match(this.search_keyword)
+        }else if(employee.phone.match(this.search_keyword)){
+          return employee.phone.match(this.search_keyword)
+        }else if(employee.email.match(this.search_keyword)){
+          return employee.email.match(this.search_keyword)
+        }
+        axios.get('/employee').then(response => {
+          this.employees = response.data;
+        })
+      })
+    }
+  },
   data(){
     return {
-      employees: []
+      employees: [],
+      search_keyword: ''
     }
   },
   methods:{
