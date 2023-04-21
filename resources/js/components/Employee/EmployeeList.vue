@@ -18,7 +18,57 @@
 
     <section class="content">
       <div class="container-fluid">
-
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Bordered Table</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>NID</th>
+                    <th>Salary</th>
+                    <th>Join Date</th>
+                    <th>Image</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="(employee, index) in employees" :key="employee.id">
+                    <td>{{ index+1 }}</td>
+                    <td>{{employee.name }}</td>
+                    <td>{{employee.email }}</td>
+                    <td>{{employee.phone }}</td>
+                    <td>{{employee.address }}</td>
+                    <td>{{employee.nid }}</td>
+                    <td>{{employee.salary }}</td>
+                    <td>{{employee.joining_date }}</td>
+                    <td><img :src="imagePath(employee.photo)" width="40" alt=""></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
       </div><!-- /.container-fluid -->
     </section>
   </div>
@@ -28,7 +78,13 @@
 export default {
   name: "EmployeeList",
   created() {
-    this.authentication()
+    this.authentication();
+    this.getEmployee()
+  },
+  data(){
+    return {
+      employees: []
+    }
   },
   methods:{
     authentication(){
@@ -37,6 +93,16 @@ export default {
           name: 'login'
         });
       }
+    },
+    getEmployee(){
+      axios.get('/employee').then(response => {
+        this.employees = response.data;
+      }).catch(error => {
+
+      })
+    },
+    imagePath(value){
+      return value ?  '/'+value : null
     }
   }
 }

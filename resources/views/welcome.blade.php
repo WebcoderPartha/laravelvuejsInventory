@@ -44,8 +44,7 @@
 <script src="{{ asset('backend/plugins/raphael/raphael.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
-<!-- ChartJS -->
-<script src="{{ asset('backend/plugins/chart.js/Chart.min.js') }}"></script>
+
 
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{{ asset('backend/dist/js/demo.js') }}"></script>--}}
