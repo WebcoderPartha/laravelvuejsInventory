@@ -30,9 +30,9 @@
 <!--                      <form @submit.prevent="SearchEmployee">-->
                       <div class="input-group">
                         <input type="text" class="form-control" v-model="search_keyword" placeholder="Search employee">
-                        <button type="submit" class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </button>
+                        </div>
                       </div>
 <!--                      </form>-->
                     </div>

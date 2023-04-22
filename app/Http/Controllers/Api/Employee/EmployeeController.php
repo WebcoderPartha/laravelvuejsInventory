@@ -73,12 +73,10 @@ class EmployeeController extends Controller
 
             return Response::json('Employee added successfully');
 
-        }
+        } // end  else
 
 
-
-
-    }
+    } // End Method
 
     /**
      * Display the specified resource.
@@ -99,6 +97,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $employee = Employee::find($id);
 
         $this->validate($request, [
@@ -131,7 +130,7 @@ class EmployeeController extends Controller
                     unlink(public_path($employee->photo));
                 }
 
-            }
+            } // end if
 
 
             $employee->photo = $directory.$photo;
@@ -159,8 +158,9 @@ class EmployeeController extends Controller
 
             return Response::json('Employee updated successfully');
 
-        }
-    }
+        } // end else
+
+    } // End Method
 
     /**
      * Remove the specified resource from storage.

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AdminAuthController;
 use App\Http\Controllers\Api\Employee\EmployeeController;
+use App\Http\Controllers\Api\Supplier\SupplierController;
 
 Route::prefix('auth')->controller(AdminAuthController::class)->group(function (){
     Route::post('/register', 'Register');
@@ -13,4 +14,7 @@ Route::prefix('auth')->controller(AdminAuthController::class)->group(function ()
     Route::get('/user/{id}', 'userbyId');
 });
 
-Route::middleware('jwtAuth')->apiResource('/employee', EmployeeController::class);
+Route::middleware('jwtAuth')->group(function (){
+    Route::apiResource('/employee', EmployeeController::class);
+    Route::apiResource('/supplier', SupplierController::class);
+});
