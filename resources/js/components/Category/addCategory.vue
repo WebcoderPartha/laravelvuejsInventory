@@ -33,14 +33,24 @@
 
                 <div class="card-body">
 
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="name">Name</label>
-                    </div>
-                    <input type="text" class="form-control" autocomplete="off" v-model="form.name" id="name" placeholder="Name">
-                  </div>
-                  <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>
+                  <div class="closestItem">
 
+                    <div class="row">
+                      <div class="col-md-10">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="name">Name</label>
+                          </div>
+                          <input type="text" class="form-control" autocomplete="off"  v-model="form.name" id="name" placeholder="Category">
+                        </div>
+                        <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>
+                      </div>
+                      <div class="col-md-2">
+<!--                        <div class="btn btn-sm btn-info" id="addmore">+</div>-->
+                      </div>
+                    </div><!--  /end Row -->
+
+                  </div> <!--  /end closestItem -->
 
                   <div class="input-group mb-3">
                     <input type="submit" class="btn btn-success btn-sm" value="Add Category">
@@ -62,14 +72,44 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
+<!--    <div class="addItem" style="display: none">-->
+<!--      <div class="removeItem">-->
+<!--        <div class="row">-->
+<!--          <div class="col-md-10">-->
+<!--            <div class="input-group mb-3">-->
+<!--              <div class="input-group-prepend">-->
+<!--                <label class="input-group-text" for="name">Name</label>-->
+<!--              </div>-->
+<!--              <input type="text" class="form-control" autocomplete="off" v-model="form.name" id="name" placeholder="Category ">-->
+<!--            </div>-->
+<!--            <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
+<!--          </div>-->
+<!--          <div class="col-md-2">-->
+<!--            <button class="btn btn-sm btn-info" @click.prevent="addMore" id="addmore">+</button>-->
+<!--            <button class="btn btn-sm btn-danger" @click.prevent="removeItem" id="remove">-</button>-->
+<!--          </div>-->
+<!--        </div>&lt;!&ndash;  /end Row &ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script>
+// $(document).ready(function (){
+//   $(document).on('click', '#addmore', function (){
+//     let addItem = $('.addItem').html();
+//     $(this).closest('.closestItem').append(addItem);
+//   });
+//
+//   $(document).on('click', '#remove', function (){
+//     $(this).closest('.removeItem').remove();
+//   });
+// });
 export default {
   name: "addCategory",
   data(){
     return {
+
       form: {
         name: null
       },
@@ -89,6 +129,7 @@ export default {
     },
 
     storeData(){
+
       axios.post('/category', this.form)
           .then(response => {
             this.$router.push({name:'list_category'})
@@ -97,6 +138,7 @@ export default {
         this.errors = error.response.data.errors
       })
     },
+
 
   }
 }

@@ -142,6 +142,8 @@ class SupplierController extends Controller
             return Response::json('Supplier updated successfully');
 
         } // end else
+
+
     }
 
     /**
@@ -163,5 +165,7 @@ class SupplierController extends Controller
 
         $supplier->delete();
         return Response::json('Supplier deleted successfully');
+
+
     }
 }
