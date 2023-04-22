@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\AdminAuthController;
 use App\Http\Controllers\Api\Employee\EmployeeController;
 use App\Http\Controllers\Api\Supplier\SupplierController;
 use App\Http\Controllers\Api\Category\CategoryController;
+use App\Http\Controllers\Api\Product\ProductController;
 
 Route::prefix('auth')->controller(AdminAuthController::class)->group(function (){
     Route::post('/register', 'Register');
@@ -19,4 +20,5 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::apiResource('/employee', EmployeeController::class);
     Route::apiResource('/supplier', SupplierController::class);
     Route::apiResource('/category', CategoryController::class);
+    Route::apiResource('/category', ProductController::class);
 });

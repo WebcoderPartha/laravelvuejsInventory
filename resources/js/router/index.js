@@ -68,6 +68,21 @@ const router = createRouter({
             name: 'edit_category',
             component:()=> import('../components/Category/CategoryEdit.vue')
         },
+        {
+            path: '/product/add',
+            name: 'add_product',
+            component:()=> import('../components/Product/ProductAdd.vue')
+        },
+        {
+            path: '/product/list',
+            name: 'list_product',
+            component:()=> import('../components/Product/ProductList.vue')
+        },
+        {
+            path: '/product/edit/:id',
+            name: 'edit_product',
+            component:()=> import('../components/Product/ProductEdit.vue')
+        },
 
     ]
 
