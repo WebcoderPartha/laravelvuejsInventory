@@ -70,6 +70,31 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Supplier
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link :to="{name:'add_supplier'}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Supplier</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{name:'list_supplier'}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Supplier List</p>
+                </router-link>
+              </li>
+
+            </ul>
+          </li>
+
 
         </ul>
       </nav>
