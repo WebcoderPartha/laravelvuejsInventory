@@ -53,7 +53,7 @@ class EmployeeController extends Controller
             $employee->address = $request->address;
             $employee->salary = $request->salary;
             $employee->nid = $request->nid;
-            $employee->joining_date = date('Y-m-d', strtotime($request->joining_date));
+            $employee->joining_date = $request->joining_date;
             $employee->photo = $directory.$photo;
             $employee->save();
 
@@ -68,7 +68,7 @@ class EmployeeController extends Controller
             $employee->address = $request->address;
             $employee->salary = $request->salary;
             $employee->nid = $request->nid;
-            $employee->joining_date = date('Y-m-d', strtotime($request->joining_date));
+            $employee->joining_date = $request->joining_date;
             $employee->save();
 
             return Response::json('Employee added successfully');

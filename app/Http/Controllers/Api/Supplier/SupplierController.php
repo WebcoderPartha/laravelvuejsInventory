@@ -31,8 +31,6 @@ class SupplierController extends Controller
             'email' => 'required|email|unique:suppliers,email',
             'phone' => 'required',
             'address' => 'required',
-            'shop_name' => 'required',
-            'photo' => 'required'
         ]);
 
         if ($file = $request->photo){
@@ -96,8 +94,7 @@ class SupplierController extends Controller
             'email' => 'required|email|unique:suppliers,email,'.$supplier->id,
             'phone' => 'required',
             'address' => 'required',
-            'shop_name' => 'required',
-            'photo' => 'required'
+
         ]);
 
         if ($file = $request->new_photo){

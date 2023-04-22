@@ -14,7 +14,7 @@ Route::prefix('auth')->controller(AdminAuthController::class)->group(function ()
     Route::get('/user/{id}', 'userbyId');
 });
 
-Route::middleware('jwtAuth')->group(function (){
+Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::apiResource('/employee', EmployeeController::class);
     Route::apiResource('/supplier', SupplierController::class);
 });

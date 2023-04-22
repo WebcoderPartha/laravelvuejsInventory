@@ -77,7 +77,7 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="nid">NID</label>
                     </div>
-                    <input type="text" class="form-control" rows="3" v-model="form.nid" id="nid" placeholder="NID">
+                    <input type="text" class="form-control" v-model="form.nid" id="nid" placeholder="NID">
                   </div>
                   <small class="text-red" v-if="errors.nid">{{ errors.nid[0] }}</small>
 
@@ -85,7 +85,7 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="joining_date">Joining Date</label>
                     </div>
-                    <input  type="date" class="form-control" rows="3" v-model="form.joining_date" id="joining_date">
+                    <input  type="date" class="form-control" v-model="form.joining_date" id="joining_date">
                   </div>
                   <small class="text-red" v-if="errors.joining_date">{{ errors.joining_date[0] }}</small>
 
