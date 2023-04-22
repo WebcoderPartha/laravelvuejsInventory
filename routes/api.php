@@ -20,5 +20,5 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::apiResource('/employee', EmployeeController::class);
     Route::apiResource('/supplier', SupplierController::class);
     Route::apiResource('/category', CategoryController::class);
-    Route::apiResource('/category', ProductController::class);
+    Route::apiResource('/product', ProductController::class);
 });
