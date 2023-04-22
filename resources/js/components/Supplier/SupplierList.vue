@@ -94,7 +94,7 @@ export default {
   name: "SupplierList",
   created() {
     this.authentication();
-    this.getEmployee()
+    this.getSupplier()
   },
   computed:{
     SearchSupplier(){
@@ -126,7 +126,7 @@ export default {
         });
       }
     },
-    getEmployee(){
+    getSupplier(){
       axios.get('/supplier').then(response => {
         this.suppliers = response.data;
       }).catch(error => {
