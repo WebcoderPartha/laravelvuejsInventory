@@ -29,7 +29,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="clearData" @submit.prevent="storeData" >
+              <form @submit.prevent="storeData" >
 
                 <div class="card-body">
 

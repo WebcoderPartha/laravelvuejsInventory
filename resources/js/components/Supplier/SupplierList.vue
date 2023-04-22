@@ -145,13 +145,13 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios.delete('/supplier/'+id).then(response => {
-            this.employees = this.suppliers.filter(employee => {
-              return employee.id !== id
+            this.suppliers = this.suppliers.filter(supplier => {
+              return supplier.id !== id
             })
           })
           Swal.fire(
               'Deleted!',
-              'Employee has been deleted.',
+              'Supplier has been deleted.',
               'success'
           )
         }
