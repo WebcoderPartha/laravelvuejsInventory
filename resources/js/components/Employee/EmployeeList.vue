@@ -1,5 +1,5 @@
 <template>
-  <div class="addEmployee">
+  <div class="listEmployee">
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
