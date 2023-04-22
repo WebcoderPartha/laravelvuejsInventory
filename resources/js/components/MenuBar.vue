@@ -95,6 +95,31 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Category
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link :to="{name:'add_category'}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Category</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{name:'list_category'}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category List</p>
+                </router-link>
+              </li>
+
+            </ul>
+          </li>
+
 
         </ul>
       </nav>
