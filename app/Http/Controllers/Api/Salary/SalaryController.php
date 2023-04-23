@@ -14,7 +14,7 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        $salary = Salary::order('id', 'DESC')->get();
+        $salary = Salary::with('employee')->orderBy('id', 'DESC')->get();
         return Response::json($salary);
     }
 
