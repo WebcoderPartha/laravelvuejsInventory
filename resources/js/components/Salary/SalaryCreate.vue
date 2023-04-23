@@ -116,27 +116,41 @@ export default {
   methods:{
     storeData(){
       // console.log(this.form.salaries)
-      axios.post('/salary', this.form).then(res => {
-        this.$router.push({name: 'list_salary'})
-        Notification.success(res.data)
-      }).catch(error => {
-        // error.response.data.errors
-        if (error.response.data.errors !== ''){
-          Notification.error("Field must not be empty!")
-        }
-      })
+      if (!this.validation()){
+        axios.post('/salary', this.form).then(res => {
+          this.$router.push({name: 'list_salary'})
+          Notification.success(res.data)
+        }).catch(error => {
+          // error.response.data.errors
+          if (error.response.data.errors !== ''){
+            Notification.error("Field must not be empty!")
+          }
+        })
+      }
     },
     getEmployee(){
       axios.get('/employee').then(res => this.employees = res.data)
     },
     addItem(){
-      this.form.salaries.push({employee_id: '', salary_date: '', amount: ''})
+      if (!this.validation()){
+        this.form.salaries.push({employee_id: '', salary_date: '', amount: ''})
+      }
     },
     removeItem(index){
       this.form.salaries.splice(index, 1)
       if (index === 0){
         this.form.salaries
       }
+    },
+    validation(){
+
+      for(let i= 0; i < this.form.salaries.length; i++){
+        if (this.form.salaries[i]['employee_id'].length === 0 || this.form.salaries[i]['salary_date'].length === 0 || this.form.salaries[i]['amount'].length === 0){
+          Notification.error('Field must not be empty!')
+          return true
+        }
+      }
+
     }
   }
 }
