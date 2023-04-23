@@ -107,19 +107,28 @@ export default {
   },
   methods: {
     updateData(){
-      axios.put('/expense/'+this.$route.params.id, this.form).then(response=> {
-        this.$router.push({name: 'list_expense'})
-        Notification.success(response.data)
-      }).catch(error => {
+      if (!this.validate()){
+        axios.put('/expense/'+this.$route.params.id, this.form).then(response=> {
+          this.$router.push({name: 'list_expense'})
+          Notification.success(response.data)
+        }).catch(error => {
 
-      })
+        })
+      }
     },
     getExpense(){
       axios.get('/expense/'+this.$route.params.id).then(response=>{
         this.form = response.data
       })
+    },
+    validate(){
+      if (this.form.details.length === 0 || this.form.amount.length === 0 || this.form.date.length === 0){
+        Notification.error("Field must not be empty!")
+        return true
+      }
     }
-  }
+  },
+
 
 }
 </script>
