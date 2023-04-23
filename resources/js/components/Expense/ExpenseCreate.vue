@@ -108,20 +108,32 @@ export default {
   },
   methods: {
     storeData(){
-      axios.post('/expense', this.form).then(response => {
-        this.$router.push({name:'list_expense'})
-        Notification.success(response.data)
-      }).catch(error => {
+      if (!this.validation()){
+        axios.post('/expense', this.form).then(response => {
+          this.$router.push({name:'list_expense'})
+          Notification.success(response.data)
+        }).catch(error => {
 
-      })
+        })
+      }
     },
     addItem(){
-      this.form.expenses.push({details: '', amount: '', date: ''})
+      if (!this.validation()){
+        this.form.expenses.push({details: '', amount: '', date: ''})
+      }
     },
     removeItem(index){
       this.form.expenses.splice(index, 1)
       if (index === 0){
         this.form.expenses
+      }
+    },
+    validation(){
+      for(let i = 0; i < this.form.expenses.length; i++){
+        if (this.form.expenses[i]['details'].length === 0 || this.form.expenses[i]['amount'].length === 0 || this.form.expenses[i]['date'].length === 0){
+          Notification.error('Field must not be empty!')
+          return true
+        }
       }
     }
   }
