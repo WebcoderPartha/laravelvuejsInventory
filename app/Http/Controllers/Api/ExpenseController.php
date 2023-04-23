@@ -24,11 +24,12 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        $count = $request->expenses;
+
+        $count = count($request->expenses);
 
         for ($i = 0; $i < $count; $i++){
             $expense = new Expense();
-            $expense->details = $request->expenses[$i]['expenses'];
+            $expense->details = $request->expenses[$i]['details'];
             $expense->amount = $request->expenses[$i]['amount'];
             $expense->date = date('Y-m-d', strtotime($request->expenses[$i]['date']));
             $expense->save();
