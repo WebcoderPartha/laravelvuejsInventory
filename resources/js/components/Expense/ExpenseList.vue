@@ -94,8 +94,8 @@ export default {
   computed:{
     SearchExpense(){
       return this.expenses = this.expenses.filter(expense => {
-        if (expense.name.match(this.search_keyword)){
-          return expense.name.match(this.search_keyword)
+        if (expense.details.match(this.search_keyword)){
+          return expense.details.match(this.search_keyword)
         }
         axios.get('/expense').then(response => {
           this.expenses = response.data;
