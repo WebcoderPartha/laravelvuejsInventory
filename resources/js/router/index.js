@@ -98,6 +98,21 @@ const router = createRouter({
             name: 'edit_expense',
             component:()=> import('../components/Expense/ExpenseEdit.vue')
         },
+        {
+            path: '/salary/add',
+            name: 'add_salary',
+            component:()=> import('../components/Salary/SalaryCreate.vue')
+        },
+        {
+            path: '/salary/list',
+            name: 'list_salary',
+            component:()=> import('../components/Salary/SalaryList.vue')
+        },
+        {
+            path: '/salary/edit/:id',
+            name: 'edit_salary',
+            component:()=> import('../components/Salary/SalaryEdit.vue')
+        },
 
     ]
 
