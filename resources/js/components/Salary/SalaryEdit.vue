@@ -114,23 +114,30 @@ export default {
   methods:{
     updateData(){
       // console.log(this.form.salaries)
-      axios.put('/salary/'+this.$route.params.id, this.form).then(res => {
-        this.$router.push({name: 'list_salary'})
-        Notification.success(res.data)
-      }).catch(error => {
-        // error.response.data.errors
-        if (error.response.data.errors !== ''){
-          Notification.error("Field must not be empty!")
-        }
-      })
+      if (!this.validation()){
+        axios.put('/salary/'+this.$route.params.id, this.form).then(res => {
+          this.$router.push({name: 'list_salary'})
+          Notification.success(res.data)
+        }).catch(error => {
+          // error.response.data.errors
+          if (error.response.data.errors !== ''){
+            Notification.error("Field must not be empty!")
+          }
+        })
+      }
     },
     getEmployee(){
       axios.get('/employee').then(res=> this.employees = res.data)
     },
     getSalary(){
       axios.get('/salary/'+this.$route.params.id).then(res=> this.form = res.data)
+    },
+    validation(){
+      if (this.form.employee_id.length === 0 || this.form.amount.length ===0 || this.form.employee_id.salary_date === 0){
+        Notification.error('Field must not be empty!')
+        return true
+      }
     }
-
   }
 }
 </script>
