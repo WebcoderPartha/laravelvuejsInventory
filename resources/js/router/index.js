@@ -83,6 +83,21 @@ const router = createRouter({
             name: 'edit_product',
             component:()=> import('../components/Product/ProductEdit.vue')
         },
+        {
+            path: '/expense/add',
+            name: 'add_expense',
+            component:()=> import('../components/Expense/ExpenseCreate.vue')
+        },
+        {
+            path: '/expense/list',
+            name: 'list_expense',
+            component:()=> import('../components/Expense/ExpenseList.vue')
+        },
+        {
+            path: '/expense/edit/:id',
+            name: 'edit_expense',
+            component:()=> import('../components/Expense/ExpenseEdit.vue')
+        },
 
     ]
 
