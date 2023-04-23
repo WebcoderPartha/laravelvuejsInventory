@@ -61,7 +61,7 @@ class SalaryController extends Controller
 
         $salary = Salary::find($id);
         $salary->employee_id = $request->employee_id;
-        $salary->amount = $request->employee_id;
+        $salary->amount = $request->amount;
         $salary->salary_date = date('Y-m-d', strtotime($request->salary_date));
         $salary->salary_month = date('F', strtotime($request->salary_date));
         $salary->salary_year = date('Y', strtotime($request->salary_date));
