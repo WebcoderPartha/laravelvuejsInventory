@@ -35,18 +35,19 @@
 
                   <div class="closestItem">
 
-                    <div class="row">
+                    <div class="row" v-for="(category, index) in names">
                       <div class="col-md-10">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
                             <label class="input-group-text" for="name">Name</label>
                           </div>
-                          <input type="text" class="form-control" autocomplete="off"  v-model="form.name" id="name" placeholder="Category">
+                          <input type="text" class="form-control" autocomplete="off"  v-model="category.name" id="name" placeholder="Category">
                         </div>
                         <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>
                       </div>
                       <div class="col-md-2">
-<!--                        <div class="btn btn-sm btn-info" id="addmore">+</div>-->
+                        <div class="btn btn-sm btn-info" @click="addItem">+</div>&nbsp;
+                        <div class="btn btn-sm btn-danger" v-if="index !== 0" @click="removeItem(index)">-</div>
                       </div>
                     </div><!--  /end Row -->
 
@@ -72,47 +73,15 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
-<!--    <div class="addItem" style="display: none">-->
-<!--      <div class="removeItem">-->
-<!--        <div class="row">-->
-<!--          <div class="col-md-10">-->
-<!--            <div class="input-group mb-3">-->
-<!--              <div class="input-group-prepend">-->
-<!--                <label class="input-group-text" for="name">Name</label>-->
-<!--              </div>-->
-<!--              <input type="text" class="form-control" autocomplete="off" v-model="form.name" id="name" placeholder="Category ">-->
-<!--            </div>-->
-<!--            <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
-<!--          </div>-->
-<!--          <div class="col-md-2">-->
-<!--            <button class="btn btn-sm btn-info" @click.prevent="addMore" id="addmore">+</button>-->
-<!--            <button class="btn btn-sm btn-danger" @click.prevent="removeItem" id="remove">-</button>-->
-<!--          </div>-->
-<!--        </div>&lt;!&ndash;  /end Row &ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
   </div>
 </template>
 
 <script>
-// $(document).ready(function (){
-//   $(document).on('click', '#addmore', function (){
-//     let addItem = $('.addItem').html();
-//     $(this).closest('.closestItem').append(addItem);
-//   });
-//
-//   $(document).on('click', '#remove', function (){
-//     $(this).closest('.removeItem').remove();
-//   });
-// });
 export default {
   name: "addCategory",
   data(){
     return {
-
-      form: {
-        name: null
-      },
+      names: [{name: ''}],
       errors: {}
     }
   },
@@ -139,6 +108,14 @@ export default {
       })
     },
 
+    addItem(){
+      this.names.push({name: ''});
+    },
+    removeItem(index){
+
+      this.names.splice(index, 1);
+
+    }
 
   }
 }
