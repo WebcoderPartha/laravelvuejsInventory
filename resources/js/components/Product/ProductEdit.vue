@@ -122,7 +122,7 @@
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <img src="" id="showImage" width="200" alt="">
+                      <img :src="imagePath(form.photo)" id="showImage" width="200" alt="">
                     </div>
 
                   </div>
@@ -167,7 +167,8 @@ export default {
         selling_price: '',
         quantity: '',
         buying_date: '',
-        photo: ''
+        photo: '',
+        new_photo: ''
       },
       categories: {},
       suppliers: {},
