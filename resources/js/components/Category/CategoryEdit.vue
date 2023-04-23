@@ -39,7 +39,7 @@
                     </div>
                     <input type="text" class="form-control" autocomplete="off" v-model="form.name" id="name" placeholder="Name">
                   </div>
-                  <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>
+<!--                  <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
 
 
                   <div class="input-group mb-3">
@@ -106,7 +106,10 @@ export default {
             });
             Notification.success(response.data)
           }).catch(error => {
-        this.errors = error.response.data.errors
+            if (error.response.data.errors.name[0]){
+              Notification.error(error.response.data.errors.name[0])
+            }
+
       })
     }
   }
