@@ -4,7 +4,8 @@
 
 <script>
 export default {
-  name: "ExpenseEdit"
+  name: "ExpenseEdit",
+
 }
 </script>
 
