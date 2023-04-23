@@ -25,6 +25,7 @@ class SalaryController extends Controller
     public function store(Request $request)
     {
 
+
         $count = count($request->salaries);
 
         for ($i = 0; $i < $count; $i++){
@@ -57,6 +58,7 @@ class SalaryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $salary = Salary::find($id);
         $salary->employee_id = $request->employee_id;
         $salary->amount = $request->employee_id;

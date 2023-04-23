@@ -51,10 +51,10 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="(salary, index) in SearchExpense" :key="expense.id">
+                  <tr v-for="(salary, index) in SearchExpense" :key="salary.id">
                     <td>{{ index+1 }}</td>
                     <td>{{salary.employee.name }}</td>
-                    <td>{{salary.date }}</td>
+                    <td>{{salary.salary_date }}</td>
                     <td>{{salary.amount }}</td>
                     <td>
                       <router-link class="btn btn-sm btn-primary" :to="{name:'edit_salary', params:{id:salary.id}}"><i class="fa fa-edit"></i></router-link>
