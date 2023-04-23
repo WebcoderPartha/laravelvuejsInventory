@@ -24,13 +24,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:categories,name'
-        ]);
 
-        $cat = new Category();
-        $cat->name = $request->name;
-        $cat->save();
+
+        $count= count($request->names);
+
+        for ($i = 0; $i < $count; $i++){
+
+            $category = new Category();
+            $category->name = $request->names[$i]['name'];
+            $category->save();
+        }
 
         return Response::json('Category inserted successfully!');
 

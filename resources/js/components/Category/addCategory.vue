@@ -35,15 +35,15 @@
 
                   <div class="closestItem">
 
-                    <div class="row" v-for="(category, index) in names">
+                    <div class="row" v-for="(category, index) in form.names">
                       <div class="col-md-10">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
                             <label class="input-group-text" for="name">Name</label>
                           </div>
-                          <input type="text" class="form-control" autocomplete="off"  v-model="category.name" id="name" placeholder="Category">
+                          <input type="text" class="form-control" autocomplete="off"  v-model="category.name" id="name" placeholder="Category Name">
                         </div>
-                        <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>
+                        <small class="text-red" v-if="errors">{{ errors }}</small>
                       </div>
                       <div class="col-md-2">
                         <div class="btn btn-sm btn-info" @click="addItem">+</div>&nbsp;
@@ -81,8 +81,10 @@ export default {
   name: "addCategory",
   data(){
     return {
-      names: [{name: ''}],
-      errors: {}
+      form: {
+        names: [{name:''}]
+      },
+      errors: ''
     }
   },
   created() {
@@ -98,22 +100,31 @@ export default {
     },
 
     storeData(){
+      let value = $('#name').val();
+        if (value !==''){
+          axios.post('/category', this.form)
+              .then(response => {
+                // console.log(response.data)
+                this.$router.push({name:'list_category'})
+                Notification.success(response.data)
+              }).catch(error => {
+            this.errors = error.response.data.errors
+          })
+      }else{
+        Notification.warning("Field must not be empty");
+      }
 
-      axios.post('/category', this.form)
-          .then(response => {
-            this.$router.push({name:'list_category'})
-            Notification.success(response.data)
-          }).catch(error => {
-        this.errors = error.response.data.errors
-      })
     },
 
     addItem(){
-      this.names.push({name: ''});
+      this.form.names.push({name: ''});
     },
     removeItem(index){
 
-      this.names.splice(index, 1);
+      this.form.names.splice(index, 1);
+      if (index === 0){
+        this.form.names
+      }
 
     }
 
