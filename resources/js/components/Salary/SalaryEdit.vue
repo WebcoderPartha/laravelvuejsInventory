@@ -40,7 +40,7 @@
                         <div class="input-group-prepend">
                           <label class="input-group-text" for="employee_id">Employee</label>
                         </div>
-                        <select type="text" class="form-control" v-model="form.employee_id" id="employee_id">
+                        <select class="form-control" v-model="form.employee_id" id="employee_id">
                           <option value="">Select Employee</option>
                           <option v-for="employee in employees" :value="employee.id">{{ employee.name }}</option>
                         </select>

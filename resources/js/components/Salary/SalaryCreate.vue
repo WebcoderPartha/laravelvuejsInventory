@@ -40,7 +40,7 @@
                         <div class="input-group-prepend">
                           <label class="input-group-text" for="employee_id">Employee</label>
                         </div>
-                        <select type="text" class="form-control" v-model="salary.employee_id" id="employee_id">
+                        <select class="form-control" v-model="salary.employee_id" id="employee_id">
                           <option value="">Select Employee</option>
                           <option v-for="employee in employees" :value="employee.id">{{ employee.name }}</option>
                         </select>
@@ -66,7 +66,7 @@
                     </div><!-- /end Col -->
 
                     <div class="col-md-1">
-                      <div class="btn btn-sm btn-primary" @click="addItem">+</div>&nbsp;
+                      <div class="btn btn-sm btn-primary" @click.prevent="addItem">+</div>&nbsp;
                       <div class="btn btn-sm btn-danger" v-if="index !== 0" @click="removeItem(index)">-</div>
                     </div>
 
@@ -100,15 +100,17 @@
 
 export default {
   name: "SalaryCreate",
+
   created() {
     this.getEmployee();
   },
   data(){
     return {
       form: {
-        salaries: [{employee_id: '', salary_date: '', amount: ''}]
+        salaries: [{employee_id: '', salary_date: '', amount: ''}],
       },
-      employees: []
+      employees: [],
+
     }
   },
   methods:{

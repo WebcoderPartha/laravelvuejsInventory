@@ -37,7 +37,7 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="category_id">Category</label>
                     </div>
-                    <select type="text" class="form-control" v-model="form.category_id" id="category_id">
+                    <select class="form-control" v-model="form.category_id" id="category_id">
                       <option value="">Select Category</option>
                       <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                     </select>
@@ -48,7 +48,7 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="supplier_id">Supplier</label>
                     </div>
-                    <select type="text" class="form-control" v-model="form.supplier_id" id="supplier_id">
+                    <select class="form-control" v-model="form.supplier_id" id="supplier_id">
                       <option value="">Select Supplier</option>
                       <option v-for="supplier in suppliers" :value="supplier.id">{{ supplier.name }}</option>
                     </select>

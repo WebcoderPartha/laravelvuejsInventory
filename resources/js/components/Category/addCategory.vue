@@ -46,7 +46,7 @@
                         <small class="text-red" v-if="errors">{{ errors }}</small>
                       </div>
                       <div class="col-md-2">
-                        <div class="btn btn-sm btn-info" @click="addItem">+</div>&nbsp;
+                        <div class="btn btn-sm btn-info" @click.prevent="addItem">+</div>&nbsp;
                         <div class="btn btn-sm btn-danger" v-if="index !== 0" @click="removeItem(index)">-</div>
                       </div>
                     </div><!--  /end Row -->
@@ -87,6 +87,9 @@ export default {
       errors: ''
     }
   },
+  computed: {
+
+  },
   created() {
     this.authentication();
   },
@@ -100,24 +103,28 @@ export default {
     },
 
     storeData(){
-      let value = $('#name').val();
-        if (value !==''){
-          axios.post('/category', this.form)
-              .then(response => {
-                // console.log(response.data)
-                this.$router.push({name:'list_category'})
-                Notification.success(response.data)
-              }).catch(error => {
-            this.errors = error.response.data.errors
-          })
-      }else{
-        Notification.warning("Field must not be empty");
+
+      if (!this.validate()){
+        axios.post('/category', this.form)
+            .then(response => {
+              // console.log(response.data)
+              this.$router.push({name:'list_category'})
+              Notification.success(response.data)
+            }).catch(error => {
+          this.errors = error.response.data.errors
+        })
       }
 
     },
 
     addItem(){
-      this.form.names.push({name: ''});
+
+
+       if (!this.validate()){
+         this.form.names.push({name: ''});
+       }
+
+
     },
     removeItem(index){
 
@@ -126,6 +133,14 @@ export default {
         this.form.names
       }
 
+    },
+    validate(){
+      for (let i = 0; i < this.form.names.length; i++){
+        if (this.form.names[i]['name'].length === 0 ){
+          Notification.error('Field must not be empty!')
+          return true
+        }
+      }
     }
 
   }
