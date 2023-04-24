@@ -113,6 +113,16 @@ const router = createRouter({
             name: 'edit_salary',
             component:()=> import('../components/Salary/SalaryEdit.vue')
         },
+        {
+            path: '/stock/products',
+            name: 'stock_products',
+            component:()=> import('../components/StockProduct/StockProduct.vue')
+        },
+        {
+            path: '/stock/product/:id/update',
+            name: 'stock_update',
+            component:()=> import('../components/StockProduct/StockUpdate.vue')
+        },
 
     ]
 
