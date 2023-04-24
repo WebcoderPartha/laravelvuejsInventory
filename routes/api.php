@@ -25,4 +25,8 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::apiResource('/product', ProductController::class);
     Route::apiResource('/expense', ExpenseController::class);
     Route::apiResource('/salary', SalaryController::class);
+
+    // Stock Update
+    Route::post('/stock-update/{id}', [ProductController::class, 'updateStock']);
+
 });

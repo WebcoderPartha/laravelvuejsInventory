@@ -194,4 +194,19 @@ class ProductController extends Controller
         $product->delete();
         return Response::json('Product deleted successfully');
     }
+
+
+    public function updateStock(Request $request, $id){
+
+
+        $this->validate($request, [
+            'quantity' => 'required',
+            ]);
+
+        $product = Product::find($id);
+        $product->quantity = $request->quantity;
+        $product->save();
+        return Response::json('Stock updated successfully');
+    }
+
 }
