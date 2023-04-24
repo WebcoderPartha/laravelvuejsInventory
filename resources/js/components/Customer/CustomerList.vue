@@ -53,7 +53,8 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="customer in SearchCustomer" :key="product.id">
+                  <tr v-for="(customer, index) in SearchCustomer" :key="customer.id">
+                    <td>{{ index+1 }}</td>
                     <td>{{ customer.name }}</td>
                     <td>{{ customer.email ? customer.email : ''  }}</td>
                     <td>{{ customer.phone ? customer.phone : ''  }}</td>
@@ -98,7 +99,7 @@ export default {
     SearchCustomer(){
       return this.customers = this.customers.filter(customer => {
         if (customer.name.match(this.search_keyword)){
-          return customer.customer.match(this.search_keyword)
+          return customer.name.match(this.search_keyword)
         }else if(customer.phone.match(this.search_keyword)){
           return customer.phone.match(this.search_keyword)
         }
@@ -140,7 +141,7 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete('/product/'+id).then(response => {
+          axios.delete('/customer/'+id).then(response => {
             return this.customers = this.customers.filter(customer => {
               return customer.id !== id
             })
