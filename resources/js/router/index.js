@@ -123,6 +123,22 @@ const router = createRouter({
             name: 'stock_update',
             component:()=> import('../components/StockProduct/StockUpdate.vue')
         },
+        {
+            path: '/customer/add',
+            name: 'add_customer',
+            component:()=> import('../components/Customer/CustomerAdd.vue')
+        },
+        {
+            path: '/customer/list',
+            name: 'list_customer',
+            component:()=> import('../components/Customer/CustomerList.vue')
+        },
+        {
+            path: '/customer/edit/:id',
+            name: 'edit_customer',
+            component:()=> import('../components/Customer/CustomerEdit.vue')
+        },
+
 
     ]
 
