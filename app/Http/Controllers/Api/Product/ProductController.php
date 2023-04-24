@@ -44,7 +44,7 @@ class ProductController extends Controller
             $sub = substr($request->photo, 0, $position);
             $extension = explode('/', $sub)[1];
 
-            $photo = time().'-supplier'.'.'.$extension;
+            $photo = time().'-product'.'.'.$extension;
             $directory = 'uploads/product/';
 
             Image::make($request->photo)->resize(300, 300)->save(public_path($directory.$photo));
@@ -122,7 +122,7 @@ class ProductController extends Controller
             $sub = substr($request->new_photo, 0, $position);
             $extension = explode('/', $sub)[1];
 
-            $photo = time().'-supplier'.'.'.$extension;
+            $photo = time().'-product'.'.'.$extension;
             $directory = 'uploads/product/';
 
             Image::make($request->new_photo)->resize(300, 300)->save(public_path($directory.$photo));
@@ -179,6 +179,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
+
         $product = Product::find($id);
 
         if ($product->photo !== null){
@@ -193,11 +194,11 @@ class ProductController extends Controller
 
         $product->delete();
         return Response::json('Product deleted successfully');
+
     }
 
 
     public function updateStock(Request $request, $id){
-
 
         $this->validate($request, [
             'quantity' => 'required',
@@ -207,6 +208,7 @@ class ProductController extends Controller
         $product->quantity = $request->quantity;
         $product->save();
         return Response::json('Stock updated successfully');
+
     }
 
 }

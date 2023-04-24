@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\Product\ProductController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\Salary\SalaryController;
+use App\Http\Controllers\Api\Customer\CustomerController;
+
 
 Route::prefix('auth')->controller(AdminAuthController::class)->group(function (){
     Route::post('/register', 'Register');
@@ -25,6 +27,7 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::apiResource('/product', ProductController::class);
     Route::apiResource('/expense', ExpenseController::class);
     Route::apiResource('/salary', SalaryController::class);
+    Route::apiResource('/customer', CustomerController::class);
 
     // Stock Update
     Route::post('/stock-update/{id}', [ProductController::class, 'updateStock']);
