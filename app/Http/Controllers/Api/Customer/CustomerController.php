@@ -100,7 +100,7 @@ class CustomerController extends Controller
             $sub = substr($request->new_photo, 0, $position);
             $extension = explode('/', $sub)[1];
 
-            $photo = time().'-product'.'.'.$extension;
+            $photo = time().'-customer'.'.'.$extension;
             $directory = 'uploads/customer/';
 
             Image::make($request->new_photo)->resize(300, 300)->save(public_path($directory.$photo));
