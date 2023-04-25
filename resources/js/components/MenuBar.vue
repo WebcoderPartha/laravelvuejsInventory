@@ -44,6 +44,15 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link :to="{name:'pos'}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                POS
+
+              </p>
+            </router-link>
+          </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">

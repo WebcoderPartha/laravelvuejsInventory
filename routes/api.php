@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Product\ProductController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\Salary\SalaryController;
 use App\Http\Controllers\Api\Customer\CustomerController;
+use App\Http\Controllers\Api\POS\PosController;
 
 
 Route::prefix('auth')->controller(AdminAuthController::class)->group(function (){
@@ -31,5 +32,8 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
 
     // Stock Update
     Route::post('/stock-update/{id}', [ProductController::class, 'updateStock']);
+
+    // POS APIs
+    Route::get('/catbyidproducts/{id}', [PosController::class, 'getCategoryIDbyProducts']);
 
 });
