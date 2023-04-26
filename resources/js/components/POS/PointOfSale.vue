@@ -112,7 +112,11 @@
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">POS</h3>
-                <div class="float-right btn btn-info">Add Customer</div>
+                <div class="buttonCOn float-right">
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#customer">
+                    Add Customer
+                  </button>
+                </div>
               </div> <!-- /.card-header -->
               <div class="card-body">
                 <table class="table table-bordered">
@@ -149,6 +153,89 @@
 
       </div><!-- /.container-fluid -->
     </section>
+
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="customer" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form id="form">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Customer</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="card-body">
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="name">Customer Name</label>
+                    </div>
+                    <input type="text" class="form-control" v-model="form.name" id="name" placeholder="Customer name">
+                  </div>
+                  <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="email">Email</label>
+                    </div>
+                    <input type="email" class="form-control" v-model="form.email" id="email" placeholder="Email">
+                  </div>
+                  <small class="text-red" v-if="errors.email">{{ errors.email[0] }}</small>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="phone">Phone</label>
+                    </div>
+                    <input type="text" class="form-control" v-model="form.phone" id="phone" placeholder="Customer phone">
+                  </div>
+                  <small class="text-red" v-if="errors.phone">{{ errors.phone[0] }}</small>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="address">Address</label>
+                    </div>
+                    <textarea class="form-control" v-model="form.address" rows="3" id="address" placeholder="Customer address"></textarea>
+                  </div>
+                  <small class="text-red" v-if="errors.address">{{ errors.address[0] }}</small>
+
+
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="photo">Photo</label>
+                        </div>
+                        <input type="file" class="form-control" @change.prevent="uploadImage" id="photo">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <img src="" id="showImage" width="200" alt="">
+                    </div>
+
+                  </div>
+
+                </div>     <!-- /.card-body -->
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" data-dismiss="modal" @click.prevent="storeData">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    
   </div>
 </template>
 
@@ -159,7 +246,13 @@ export default {
   data(){
     return {
       form: {
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        photo: ''
       },
+      errors: {},
       products: [],
       categories: [],
       catProducts: []
@@ -188,8 +281,36 @@ export default {
     },
     imagePath(path){
       return "/"+path
+    },
+
+    uploadImage(e){
+      let file = e.target.files[0];
+      // console.log(file.size)
+      if (file.size < 1048576 ){
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          this.form.photo = event.target.result
+          document.getElementById('showImage').src = event.target.result
+        };
+        reader.readAsDataURL(file);
+      }else{
+        Notification.error('Image file must be less than 1 MB')
+      }
+    },
+
+    storeData(){
+      axios.post('/customer', this.form).then(response => {
+        $('#form')[0].reset();
+        document.getElementById('showImage').src = ''
+        Notification.success(response.data);
+      }).catch(error => {
+        this.errors = error.response.data.errors
+      })
+
     }
-  }
+
+  },
+
 }
 </script>
 
