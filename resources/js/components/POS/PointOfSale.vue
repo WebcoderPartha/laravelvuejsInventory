@@ -126,7 +126,7 @@
           <!--  /end right column -->
         </div>
 
-        <cart :getCartData="getCartData"></cart>
+        <cart @deleteCart="removeItem"  :getCartData="getCartData"></cart>
 
         <div class="row">
           <div class="col-md-10 mx-auto">
@@ -278,7 +278,6 @@
 <script>
 
 import Cart from "./Cart.vue";
-import axios from "axios";
 export default {
   name: "PointOfSale",
   data(){
@@ -388,6 +387,13 @@ export default {
         this.getCartData =  response.data
       })
     },
+    removeItem(payload){
+      axios.delete('/remove_cart/'+payload.cartID).then(response => {
+        axios.get('/getcarts').then(response => {
+          this.getCartData = response.data
+        })
+      })
+    }
 
   },
 

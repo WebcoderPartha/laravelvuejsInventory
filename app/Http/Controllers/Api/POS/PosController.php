@@ -64,5 +64,11 @@ class PosController extends Controller
         return Response::json($carts);
     }
 
+    public function removeCart($id){
+
+        $cart = Pos::where('id', $id)->delete();
+        return Response::json('Cart item removed!');
+
+    }
 
 }

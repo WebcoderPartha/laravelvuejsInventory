@@ -13,7 +13,7 @@
           </div>
         </div> <!-- /.card-header -->
         <div class="card-body">
-          <table class="table table-bordered">
+          <table class="table table-bordered" v-if="getCartData.length > 0">
             <thead>
             <tr>
               <th>SL</th>
@@ -32,11 +32,11 @@
               <td>{{ cart.product_price  }}</td>
               <td>{{ cart.sub_total  }}</td>
 
-              <td><span class="btn btn-sm btn-danger">X</span></td>
+              <td><span @click.prevent="removeCart(cart.id)" class="btn btn-sm btn-danger">X</span></td>
             </tr>
             </tbody>
           </table>
-
+          <h3 v-else>No cart</h3>
         </div><!-- /.card-body -->
 
       </div> <!-- /.card -->
@@ -61,8 +61,10 @@ export default {
 
   },
   methods: {
+    removeCart(cartID){
+      this.$emit('deleteCart', {cartID})
 
-
+    }
   }
 }
 </script>
