@@ -55,11 +55,13 @@ class PosController extends Controller
         }
 
 
-
         return Response::json('Product added to cart!');
 
+    }
 
-
+    public function getCarts(){
+        $carts = Pos::orderBy('id', 'ASC')->get();
+        return Response::json($carts);
     }
 
 

@@ -126,53 +126,8 @@
           <!--  /end right column -->
         </div>
 
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-10 mx-auto">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">POS</h3>
-                <div class="buttonCOn float-right">
-                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#customer">
-                    Add Customer
-                  </button>
-                </div>
-              </div> <!-- /.card-header -->
-              <div class="card-body">
-                <table class="table table-bordered">
-                  <thead>
-                  <tr>
-                    <th>SL</th>
-                    <th>Name</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Name</td>
-                    <td>3445</td>
-                    <td>34</td>
-                    <td>45</td>
+        <cart :getCartData="getCartData"></cart>
 
-                    <td><span class="btn btn-sm btn-danger">X</span></td>
-                  </tr>
-                  </tbody>
-                </table>
-
-              </div><!-- /.card-body -->
-
-            </div> <!-- /.card -->
-          </div> <!-- /col-md-5 -->
-          <!--  /end left column -->
-
-
-
-        </div> <!-- /.row -->
         <div class="row">
           <div class="col-md-10 mx-auto">
             <div class="row">
@@ -237,7 +192,6 @@
 
     <!-- Button trigger modal -->
 
-
     <!-- Modal -->
     <div class="modal fade" id="customer" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -245,6 +199,7 @@
           <form id="form">
             <div class="modal-header">
               <h5 class="modal-title">Add Customer</h5>
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -322,8 +277,8 @@
 
 <script>
 
-
-
+import Cart from "./Cart.vue";
+import axios from "axios";
 export default {
   name: "PointOfSale",
   data(){
@@ -342,6 +297,7 @@ export default {
       categories: [],
       catProducts: [],
       get_customers: [],
+      getCartData: []
     }
   },
   created() {
@@ -349,6 +305,7 @@ export default {
     this.getCatByIdProducts();
     this.getProduct();
     this.getCustomer();
+    this.getCarts();
   },
   computed: {
     AllProductFilter(){
@@ -373,6 +330,9 @@ export default {
         axios.get('/product').then(res => this.catProducts = res.data)
       })
     }
+  },
+  components: {
+    Cart
   },
   methods: {
     getCategory(){
@@ -419,9 +379,15 @@ export default {
     },
     addToCart(productID){
       axios.post('/addtocart/'+productID).then(response => {
+        axios.get('/getcarts').then(res => this.getCartData = res.data)
         Notification.success(response.data)
       })
-    }
+    },
+    getCarts(){
+      axios.get('/getcarts').then(response => {
+        this.getCartData =  response.data
+      })
+    },
 
   },
 
