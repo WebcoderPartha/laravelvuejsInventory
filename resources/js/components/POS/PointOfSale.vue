@@ -43,6 +43,17 @@
                 <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
+                    <!-- Search -->
+                      <div class="input-group">
+                        <input type="text" v-model="SearchAll" class="form-control" placeholder="Search">
+                        <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                      </span>
+                        </div>
+                      </div>
+                    <!-- /Search -->
+
                     <table class="table table-bordered">
                       <thead>
                       <tr>
@@ -54,7 +65,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr class="productRow" v-for="product in products" :key="product.id">
+                      <tr class="productRow" v-for="product in AllProductFilter" :key="product.id">
                         <td>{{ product.product_code }}</td>
                         <td>{{ product.product_name }}</td>
                         <td>
@@ -241,6 +252,8 @@
 
 <script>
 
+import axios from "axios";
+
 export default {
   name: "PointOfSale",
   data(){
@@ -252,6 +265,7 @@ export default {
         address: '',
         photo: ''
       },
+      SearchAll: '',
       errors: {},
       products: [],
       categories: [],
@@ -264,7 +278,14 @@ export default {
     this.getProduct();
   },
   computed: {
-
+    AllProductFilter(){
+       return this.products = this.products.filter(product => {
+        if (product.product_name.match(this.SearchAll)){
+         return  product.product_name.match(this.SearchAll);
+        }
+        axios.get('/product').then(res => this.products = res.data)
+      })
+    }
   },
   methods: {
     getCategory(){
