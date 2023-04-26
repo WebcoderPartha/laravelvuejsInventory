@@ -35,5 +35,8 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
 
     // POS APIs
     Route::get('/catbyidproducts/{id}', [PosController::class, 'getCategoryIDbyProducts']);
+    Route::get('/getallproduct', [PosController::class, 'AllProducts']);
+    Route::post('/addtocart/{id}', [PosController::class, 'addToCart']);
+
 
 });

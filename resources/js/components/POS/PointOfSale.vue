@@ -65,7 +65,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr class="productRow" v-for="product in AllProductFilter" :key="product.id">
+                      <tr class="productRow" v-for="product in AllProductFilter" @click.prevent="addToCart(product.id)" :key="product.id">
                         <td>{{ product.product_code }}</td>
                         <td>{{ product.product_name }}</td>
                         <td>
@@ -81,7 +81,7 @@
                   </div>
                   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <!-- Search -->
-                    <div class="input-group mt-2 mb-2">
+                    <div class="input-group mt-2 mb-2"  v-if="catProducts.length > 0">
                       <input type="text" v-model="CatWiseSeach" class="form-control" placeholder="Search">
                       <div class="input-group-prepend">
                       <span class="input-group-text">
@@ -91,7 +91,7 @@
                     </div>
                     <!-- /Search -->
 
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" v-if="catProducts.length > 0">
                       <thead>
                       <tr>
                         <th>Product Code</th>
@@ -102,7 +102,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr class="productRow" v-for="catProduct in CatWiseProductFilter" :key="catProduct.id">
+                      <tr class="productRow" v-for="catProduct in CatWiseProductFilter" @click.prevent="addToCart(catProduct.id)" :key="catProduct.id">
                         <td>{{ catProduct.product_code }}</td>
                         <td>{{ catProduct.product_name }}</td>
                         <td>
@@ -114,6 +114,7 @@
                       </tr>
                       </tbody>
                     </table>
+                    <h4 class="text-center mt-1" v-else>No product found!</h4>
 
                   </div>
                 </div>
@@ -358,7 +359,7 @@ export default {
         else if (product.product_code.match(this.SearchAll)){
            return  product.product_code.match(this.SearchAll);
          }
-        axios.get('/product').then(res => this.products = res.data)
+        axios.get('/getallproduct').then(res => this.products = res.data)
       })
     },
     CatWiseProductFilter(){
@@ -381,7 +382,7 @@ export default {
       axios.get('/catbyidproducts/'+catID).then(res => this.catProducts = res.data)
     },
     getProduct(){
-      axios.get('/product').then(res => this.products = res.data)
+      axios.get('/getallproduct').then(res => this.products = res.data)
     },
     dataTarget(value){
       return "#"+value
@@ -415,6 +416,11 @@ export default {
     },
     getCustomer(){
       axios.get('/customer').then(res => this.get_customers = res.data);
+    },
+    addToCart(productID){
+      axios.post('/addtocart/'+productID).then(response => {
+        Notification.success(response.data)
+      })
     }
 
   },
