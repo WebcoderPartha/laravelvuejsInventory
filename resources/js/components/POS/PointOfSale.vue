@@ -44,7 +44,7 @@
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                     <!-- Search -->
-                      <div class="input-group">
+                      <div class="input-group mt-2 mb-2">
                         <input type="text" v-model="SearchAll" class="form-control" placeholder="Search">
                         <div class="input-group-prepend">
                       <span class="input-group-text">
@@ -80,7 +80,16 @@
 
                   </div>
                   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
+                    <!-- Search -->
+                    <div class="input-group mt-2 mb-2">
+                      <input type="text" v-model="CatWiseSeach" class="form-control" placeholder="Search">
+                      <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                      </span>
+                      </div>
+                    </div>
+                    <!-- /Search -->
 
                     <table class="table table-bordered">
                       <thead>
@@ -93,7 +102,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr class="productRow" v-for="catProduct in catProducts" :key="catProduct.id">
+                      <tr class="productRow" v-for="catProduct in CatWiseProductFilter" :key="catProduct.id">
                         <td>{{ catProduct.product_code }}</td>
                         <td>{{ catProduct.product_name }}</td>
                         <td>
@@ -266,6 +275,7 @@ export default {
         photo: ''
       },
       SearchAll: '',
+      CatWiseSeach: '',
       errors: {},
       products: [],
       categories: [],
@@ -283,7 +293,21 @@ export default {
         if (product.product_name.match(this.SearchAll)){
          return  product.product_name.match(this.SearchAll);
         }
+        else if (product.product_code.match(this.SearchAll)){
+           return  product.product_code.match(this.SearchAll);
+         }
         axios.get('/product').then(res => this.products = res.data)
+      })
+    },
+    CatWiseProductFilter(){
+      return this.catProducts = this.catProducts.filter(catProduct => {
+        if (catProduct.product_name.match(this.CatWiseSeach)){
+          return  catProduct.product_name.match(this.CatWiseSeach);
+        }
+        else if (catProduct.product_code.match(this.CatWiseSeach)){
+          return  catProduct.product_code.match(this.CatWiseSeach);
+        }
+        axios.get('/product').then(res => this.catProducts = res.data)
       })
     }
   },
