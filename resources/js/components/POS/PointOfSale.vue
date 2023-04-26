@@ -169,7 +169,67 @@
           </div> <!-- /col-md-5 -->
           <!--  /end left column -->
 
+
+
         </div> <!-- /.row -->
+        <div class="row">
+          <div class="col-md-10 mx-auto">
+            <div class="row">
+              <div class="col-md-6">
+
+               <div class="card">
+                 <div class="card-body">
+                   <form action="">
+
+                     <div class="form-group">
+                       <label for="customers">Customer</label>
+                       <select class="form-control" id="customers">
+                         <option value="">Select Customer</option>
+                         <option :value="get_customer.id" v-for="get_customer in get_customers" :key="get_customer.id" >{{ get_customer.name }}</option>
+                       </select>
+<!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
+                     </div>
+                     <div class="form-group">
+                       <label for="Advance">Advance Pay</label>
+                       <input type="text" class="form-control" id="Advance" placeholder="Advance pay">
+<!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
+                     </div>
+                     <div class="form-group">
+                       <label for="Due">Due</label>
+                       <input type="text" class="form-control" id="Due" placeholder="Due">
+                       <!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
+                     </div>
+                     <div class="form-group">
+                       <label for="payby">Pay By</label>
+                       <select class="form-control" id="payby">
+                         <option value="">Select</option>
+                         <option value="Cash">Cash</option>
+                         <option value="Cheque">Cheque</option>
+                       </select>
+                       <!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
+                     </div>
+
+                   </form>
+                 </div>
+               </div>
+
+              </div>
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <ul class="list-group">
+                      <li class="list-group-item">Total Quantity: <span class="float-right">345</span></li>
+                      <li class="list-group-item">Sub Total: <span class="float-right">345</span></li>
+                      <li class="list-group-item">Vat: <span class="float-right">345</span></li>
+                      <li class="list-group-item">Total: <span class="float-right">345</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
 
       </div><!-- /.container-fluid -->
     </section>
@@ -261,7 +321,7 @@
 
 <script>
 
-import axios from "axios";
+
 
 export default {
   name: "PointOfSale",
@@ -279,13 +339,15 @@ export default {
       errors: {},
       products: [],
       categories: [],
-      catProducts: []
+      catProducts: [],
+      get_customers: [],
     }
   },
   created() {
     this.getCategory();
     this.getCatByIdProducts();
     this.getProduct();
+    this.getCustomer();
   },
   computed: {
     AllProductFilter(){
@@ -342,7 +404,6 @@ export default {
         Notification.error('Image file must be less than 1 MB')
       }
     },
-
     storeData(){
       axios.post('/customer', this.form).then(response => {
         $('#form')[0].reset();
@@ -351,7 +412,9 @@ export default {
       }).catch(error => {
         this.errors = error.response.data.errors
       })
-
+    },
+    getCustomer(){
+      axios.get('/customer').then(res => this.get_customers = res.data);
     }
 
   },
