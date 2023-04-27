@@ -164,7 +164,10 @@
                        </select>
                        <!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
                      </div>
-
+                     <div class="form-group">
+                       <button type="submit" class="btn btn-primary">Order Now</button>
+                       <!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
+                     </div>
                    </form>
                  </div>
                </div>
@@ -176,8 +179,8 @@
                     <ul class="list-group">
                       <li class="list-group-item">Total Quantity: <span class="float-right">{{ totalCart  }}</span></li>
                       <li class="list-group-item">Sub Total: <span class="float-right">{{ subtotal }}</span></li>
-                      <li class="list-group-item">Vat: <span class="float-right">345</span></li>
-                      <li class="list-group-item">Total: <span class="float-right">345</span></li>
+                      <li class="list-group-item">Vat ({{vat}}%) : <span class="float-right">{{ (subtotal*vat)/100 }}</span></li>
+                      <li class="list-group-item">Total: <span class="float-right">{{ (subtotal*vat)/100 +subtotal }}</span></li>
                     </ul>
                   </div>
                 </div>
@@ -297,7 +300,8 @@ export default {
       categories: [],
       catProducts: [],
       get_customers: [],
-      getCartData: []
+      getCartData: [],
+      vat: ''
     }
   },
   created() {
@@ -305,7 +309,7 @@ export default {
     this.getCatByIdProducts();
     this.getProduct();
     this.getCustomer();
-
+    this.getVat();
     this.getCarts();
 
   },
@@ -423,6 +427,11 @@ export default {
       axios.post('/incqty/'+payload.product_id).then(res => {
         this.getCarts()
         Notification.success(res.data)
+      })
+    },
+    getVat(){
+      axios.get('/setting').then(res => {
+        this.vat = res.data.vat
       })
     }
 
