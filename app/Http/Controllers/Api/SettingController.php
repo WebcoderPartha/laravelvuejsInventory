@@ -14,7 +14,8 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
+        $setting = Setting::where('id', 1)->first();
+        return Response::json($setting);
     }
 
     /**
@@ -38,8 +39,7 @@ class SettingController extends Controller
      */
     public function show(string $id)
     {
-        $setting = Setting::where('id', $id)->first();
-        return Response::json($setting);
+
     }
 
 

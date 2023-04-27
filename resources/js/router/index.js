@@ -138,11 +138,15 @@ const router = createRouter({
             name: 'edit_customer',
             component:()=> import('../components/Customer/CustomerEdit.vue')
         },
-
         {
-            path: '/pos/',
+            path: '/pos',
             name: 'pos',
             component:()=> import('../components/POS/PointOfSale.vue')
+        },
+        {
+            path: '/settings',
+            name: 'setting',
+            component:()=> import('../components/Setting/Setting.vue')
         },
 
 
