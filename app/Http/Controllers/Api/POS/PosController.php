@@ -71,4 +71,27 @@ class PosController extends Controller
 
     }
 
+    public function incrementQty($id){
+
+        $cart = Pos::where('product_id', $id)->first();
+        $cart->quantity =  $cart->quantity + 1;
+        $cart->sub_total  = $cart->sub_total + $cart->product_price;
+        $cart->save();
+
+        return Response::json('Quantity increment!');
+
+    }
+
+    public function descrementQty($id){
+
+        $cart = Pos::where('product_id', $id)->first();
+        $cart->quantity =  $cart->quantity - 1;
+        $cart->sub_total  = $cart->sub_total - $cart->product_price;
+        $cart->save();
+
+        return Response::json('Quantity decrement!');
+
+    }
+
+
 }

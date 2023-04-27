@@ -126,7 +126,7 @@
           <!--  /end right column -->
         </div>
 
-        <cart @deleteCart="removeItem"  :getCartData="getCartData"></cart>
+        <cart @deleteCart="removeItem"  @decrementQty="decrementQty" @incrementQty="incrementQty" :getCartData="getCartData"></cart>
 
         <div class="row">
           <div class="col-md-10 mx-auto">
@@ -280,6 +280,7 @@
 import Cart from "./Cart.vue";
 export default {
   name: "PointOfSale",
+  emits: ['deleteCart'],
   data(){
     return {
       form: {
@@ -304,9 +305,12 @@ export default {
     this.getCatByIdProducts();
     this.getProduct();
     this.getCustomer();
+
     this.getCarts();
+
   },
   computed: {
+
     AllProductFilter(){
        return this.products = this.products.filter(product => {
         if (product.product_name.match(this.SearchAll)){
@@ -389,9 +393,22 @@ export default {
     },
     removeItem(payload){
       axios.delete('/remove_cart/'+payload.cartID).then(response => {
+        Notification.success(response.data)
         axios.get('/getcarts').then(response => {
           this.getCartData = response.data
         })
+      })
+    },
+    decrementQty(payload){
+      axios.post('/decqty/'+payload.product_id).then(res => {
+        this.getCarts()
+        Notification.success(res.data)
+      })
+    },
+    incrementQty(payload){
+      axios.post('/incqty/'+payload.product_id).then(res => {
+        this.getCarts()
+        Notification.success(res.data)
       })
     }
 

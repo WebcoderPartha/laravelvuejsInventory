@@ -40,5 +40,8 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::get('/getcarts', [PosController::class, 'getCarts']);
     Route::delete('/remove_cart/{id}', [PosController::class, 'removeCart']);
 
+    Route::post('/incqty/{id}', [PosController::class, 'incrementQty']);
+    Route::post('/decqty/{id}', [PosController::class, 'descrementQty']);
+
 
 });

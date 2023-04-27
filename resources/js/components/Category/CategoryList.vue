@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import {createApp} from 'vue'
+
 export default {
   name: "CategoryList",
   created() {
@@ -132,9 +134,10 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios.delete('/category/'+id).then(response => {
-            this.categories = this.categories.filter(category => {
-              return category.id !== id
-            })
+            // this.categories = this.categories.filter(category => {
+            //   return category.id !== id
+            // })
+            this.getCategory();
           })
           Swal.fire(
               'Deleted!',

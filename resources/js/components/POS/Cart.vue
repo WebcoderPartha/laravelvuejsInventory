@@ -28,7 +28,12 @@
             <tr v-for="(cart, index) in getCartData" :key="cart.id">
               <td>{{ index+1 }}</td>
               <td>{{ cart.product_name  }}</td>
-              <td>{{ cart.quantity  }}</td>
+              <td>
+                <button style="float: left" class="btn btn-danger btn-sm" v-if="cart.quantity > 1"  @click.prevent="qtyDecrement(cart.product_id)">-</button>
+                <button style="float: left" class="btn btn-danger btn-sm" disabled v-else>-</button>
+                <input style="width: 50px; float: left" type="text" class="form-control" :value="cart.quantity">
+                 <button style="float: left" @click.prevent="qtyIncrement(cart.product_id)" class="btn btn-primary btn-sm">+</button>
+              </td>
               <td>{{ cart.product_price  }}</td>
               <td>{{ cart.sub_total  }}</td>
 
@@ -58,17 +63,27 @@ export default {
   },
   props: ['getCartData'],
   created() {
-
   },
   methods: {
     removeCart(cartID){
       this.$emit('deleteCart', {cartID})
-
+    },
+    qtyDecrement(product_id){
+      this.$emit('decrementQty', {product_id})
+    },
+    qtyIncrement(product_id){
+      this.$emit('incrementQty', {product_id})
     }
   }
 }
 </script>
 
 <style scoped>
-
+button.btn.btn-danger.btn-sm, button.btn.btn-primary.btn-sm {
+  padding: 8px 15px;
+  border-radius: 0 !important;
+}
+input.form-control {
+  border-radius: 0px;
+}
 </style>
