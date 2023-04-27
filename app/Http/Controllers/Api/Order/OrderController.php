@@ -52,9 +52,9 @@ class OrderController extends Controller
             $orderDetail->order_id = $order->id;
             $orderDetail->product_id = $cart->product_id;
             $orderDetail->product_name = $cart->product_name;
-            $orderDetail->qty = $cart->qty;
-            $orderDetail->price = $cart->price;
-            $orderDetail->sub_price = $cart->sub_price;
+            $orderDetail->qty = $cart->quantity;
+            $orderDetail->price = $cart->product_price;
+            $orderDetail->sub_price = $cart->sub_total;
             $orderDetail->save();
             $pos = Pos::where('product_id', $cart->product_id)->first();
             $pos->delete();

@@ -147,7 +147,7 @@
                      </div>
                      <div class="form-group">
                        <label for="Advance">Advance Pay</label>
-                       <input type="text" v-model="advance_pay" class="form-control" id="Advance" placeholder="Advance pay">
+                       <input type="text" @change="effectAmount" v-model="advance_pay" class="form-control" id="Advance" placeholder="Advance pay">
 <!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
                      </div>
                      <div class="form-group">
@@ -460,8 +460,14 @@ export default {
         Notification.success(res.data);
 
       })
-    }
+    },
 
+    effectAmount(e){
+      let total = (this.subtotal * this.vat)/100 + this.subtotal
+      let advance = e.target.value;
+
+        this.due = parseInt(total - advance)
+    }
   },
 
 }
