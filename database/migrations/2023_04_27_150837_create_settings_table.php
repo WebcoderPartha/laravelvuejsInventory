@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('vat')->nullable(0);
             $table->timestamps();
         });
     }

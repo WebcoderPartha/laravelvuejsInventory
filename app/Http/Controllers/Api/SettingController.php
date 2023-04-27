@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class SettingController extends Controller
 {
@@ -36,23 +38,22 @@ class SettingController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $setting = Setting::where('id', $id)->first();
+        return Response::json($setting);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $setting = Setting::where('id', $id)->first();
+        $setting->email = $request->email;
+        $setting->phone = $request->phone;
+        $setting->vat = $request->vat;
+        $setting->save();
+        return Response::json('Setting updated successfully');
     }
 
     /**
