@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Salary\SalaryController;
 use App\Http\Controllers\Api\Customer\CustomerController;
 use App\Http\Controllers\Api\POS\PosController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\Order\OrderController;
 
 
 Route::prefix('auth')->controller(AdminAuthController::class)->group(function (){
@@ -45,6 +46,7 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::post('/decqty/{id}', [PosController::class, 'descrementQty']);
 
     Route::apiResource('/setting',SettingController::class);
+    Route::apiResource('/order',OrderController::class);
 
 
 });

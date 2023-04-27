@@ -135,11 +135,11 @@
 
                <div class="card">
                  <div class="card-body">
-                   <form action="">
+                   <form @submit.prevent="orderNow" id="orderForm">
 
                      <div class="form-group">
                        <label for="customers">Customer</label>
-                       <select class="form-control" id="customers">
+                       <select class="form-control" v-model="customer_id" id="customers">
                          <option value="">Select Customer</option>
                          <option :value="get_customer.id" v-for="get_customer in get_customers" :key="get_customer.id" >{{ get_customer.name }}</option>
                        </select>
@@ -147,17 +147,17 @@
                      </div>
                      <div class="form-group">
                        <label for="Advance">Advance Pay</label>
-                       <input type="text" class="form-control" id="Advance" placeholder="Advance pay">
+                       <input type="text" v-model="advance_pay" class="form-control" id="Advance" placeholder="Advance pay">
 <!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
                      </div>
                      <div class="form-group">
                        <label for="Due">Due</label>
-                       <input type="text" class="form-control" id="Due" placeholder="Due">
+                       <input type="text" v-model="due" class="form-control" id="Due" placeholder="Due">
                        <!--                       <small class="text-red" v-if="errors.name">{{ errors.name[0] }}</small>-->
                      </div>
                      <div class="form-group">
                        <label for="payby">Pay By</label>
-                       <select class="form-control" id="payby">
+                       <select class="form-control" v-model="pay_by" id="payby">
                          <option value="">Select</option>
                          <option value="Cash">Cash</option>
                          <option value="Cheque">Cheque</option>
@@ -301,7 +301,11 @@ export default {
       catProducts: [],
       get_customers: [],
       getCartData: [],
-      vat: ''
+      vat: '',
+      customer_id: '',
+      advance_pay: '',
+      due: '',
+      pay_by: ''
     }
   },
   created() {
@@ -432,6 +436,29 @@ export default {
     getVat(){
       axios.get('/setting').then(res => {
         this.vat = res.data.vat
+      })
+    },
+    orderNow(){
+
+      let vat = (this.subtotal * this.vat)/100
+      let data = {
+        customer_id: this.customer_id,
+        advance_pay: this.advance_pay,
+        due: this.due,
+        pay_by: this.pay_by,
+        total_qty: this.totalCart,
+        subtotal: this.subtotal,
+        vat: vat,
+        total: this.subtotal + vat
+      };
+      axios.post('/order', data).then(res => {
+        this.getCarts();
+        this.customer_id = '';
+        this.advance_pay = '';
+        this.due ='';
+        this.pay_by = '';
+        Notification.success(res.data);
+
       })
     }
 
