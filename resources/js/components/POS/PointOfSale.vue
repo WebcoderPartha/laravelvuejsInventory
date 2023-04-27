@@ -174,7 +174,7 @@
                 <div class="card">
                   <div class="card-body">
                     <ul class="list-group">
-                      <li class="list-group-item">Total Quantity: <span class="float-right">345</span></li>
+                      <li class="list-group-item">Total Quantity: <span class="float-right">{{ totalCart  }}</span></li>
                       <li class="list-group-item">Sub Total: <span class="float-right">345</span></li>
                       <li class="list-group-item">Vat: <span class="float-right">345</span></li>
                       <li class="list-group-item">Total: <span class="float-right">345</span></li>
@@ -310,7 +310,14 @@ export default {
 
   },
   computed: {
+    totalCart(){
+      let sum = 0;
+      for(let i =0; i<this.getCartData.length; i++){
 
+        sum += parseFloat(this.getCartData[i].quantity)
+      }
+      return sum;
+    },
     AllProductFilter(){
        return this.products = this.products.filter(product => {
         if (product.product_name.match(this.SearchAll)){
