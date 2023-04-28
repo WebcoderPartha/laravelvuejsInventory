@@ -76,15 +76,15 @@
                   </tr>
                   <tr>
                     <td>Email:</td>
-                    <td>{{  customer.email }} Tk</td>
+                    <td>{{  customer.email }}</td>
                   </tr>
                   <tr>
                     <td>Phone:</td>
-                    <td>{{  customer.phone }} Tk</td>
+                    <td>{{  customer.phone }}</td>
                   </tr>
                   <tr>
                     <td>Address:</td>
-                    <td>{{  customer.address }} Tk</td>
+                    <td>{{  customer.address }}</td>
                   </tr>
 
                 </table>

@@ -16,7 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::with('customer')->orderBy('id', 'DESC')->get();
+        return Response::json($orders);
     }
 
     /**
@@ -75,6 +76,20 @@ class OrderController extends Controller
         $order = Order::with('customer', 'order_detail')->where('id', $id)->first();
         return Response::json($order);
     }
+
+    public function SearchOrder(Request $request){
+        $order = Order::with('customer')->where('order_date', date('d-m-Y', strtotime($request->search_date)))->orderBy('id', 'DESC')->get();
+        return Response::json($order);
+    }
+
+    public function todayOrderReport(){
+
+        $data['todayOrders'] =  $order = Order::with('customer')->where('order_date', date('d-m-Y'))->count();
+        $data['todayTotalPrice'] =  $order = Order::with('customer')->where('order_date', date('d-m-Y'))->sum('total');
+        return Response::json($data);
+
+    }
+
 
     /**
      * Display the specified resource.

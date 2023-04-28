@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Customer\CustomerController;
 use App\Http\Controllers\Api\POS\PosController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\Order\OrderController;
+use App\Http\Controllers\Api\Report\ReportController;
 
 
 Route::prefix('auth')->controller(AdminAuthController::class)->group(function (){
@@ -51,7 +52,13 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
 
     Route::get('/todayorder', [OrderController::class, 'todayOrder']);
     Route::get('/orderdetail/{id}', [OrderController::class, 'orderDetails']);
+    Route::post('/ordersearch', [OrderController::class, 'SearchOrder']);
+    Route::get('/todyorder',  [OrderController::class, 'todayOrderReport']);
 
+    Route::get('/cuscount',  [ReportController::class, 'customerCount']);
+    Route::get('/empcount',  [ReportController::class, 'employeeCount']);
+    Route::get('/supcount',  [ReportController::class, 'supplierCount']);
+    Route::get('/procount',  [ReportController::class, 'productCount']);
 
 
 });
