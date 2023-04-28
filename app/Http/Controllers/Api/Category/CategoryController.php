@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\Category;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderMail;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 
 class CategoryController extends Controller
@@ -34,7 +36,6 @@ class CategoryController extends Controller
             $category->name = $request->names[$i]['name'];
             $category->save();
         }
-
         return Response::json('Category inserted successfully!');
 
     }

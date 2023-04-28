@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api\Order;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderMail;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Pos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 
 class OrderController extends Controller
@@ -45,6 +48,8 @@ class OrderController extends Controller
             'order_year' => date('Y')
         ]);
 
+
+
         $carts = Pos::all();
 
         foreach ($carts as $cart){
@@ -62,6 +67,10 @@ class OrderController extends Controller
 
         }
 
+        $customerEmail = Customer::where('id', $request->customer_id)->first();
+        $data['orders'] = $order;
+
+        Mail::to('partha@gmail.com')->send(new OrderMail($data));
 
         return Response::json('Order Done!');
     }
