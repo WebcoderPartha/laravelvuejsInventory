@@ -149,6 +149,17 @@ const router = createRouter({
             component:()=> import('../components/Setting/Setting.vue')
         },
 
+        {
+            path: '/order/toady-order',
+            name: 'today_order',
+            component:()=> import('../components/Order/TodayOrder.vue')
+        },
+        {
+            path: '/order/list',
+            name: 'order_list',
+            component:()=> import('../components/Order/OrderList.vue')
+        },
+
 
     ]
 

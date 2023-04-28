@@ -45,8 +45,12 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::post('/incqty/{id}', [PosController::class, 'incrementQty']);
     Route::post('/decqty/{id}', [PosController::class, 'descrementQty']);
 
+
     Route::apiResource('/setting',SettingController::class);
     Route::apiResource('/order',OrderController::class);
+
+    Route::get('/todayorder', [OrderController::class, 'todayOrder']);
+
 
 
 });

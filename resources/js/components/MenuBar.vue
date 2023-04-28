@@ -248,6 +248,32 @@
           </li>
 
 
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Order
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link :to="{name:'today_order'}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Today Order</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{name:'order_list'}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Order List</p>
+                </router-link>
+              </li>
+
+            </ul>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

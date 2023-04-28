@@ -39,7 +39,7 @@ class OrderController extends Controller
             'subtotal' => $request->subtotal,
             'vat' => $request->vat,
             'total' => $request->total,
-            'order_date' => date('d-m-y'),
+            'order_date' => date('d-m-Y'),
             'order_month' => date('F'),
             'order_year' => date('Y')
         ]);
@@ -65,6 +65,11 @@ class OrderController extends Controller
         return Response::json('Order Done!');
     }
 
+    public function todayOrder(){
+        $todayOrder = Order::with('customer')->where('order_date', date('d-m-Y'))->orderBy('id', 'DESC')->get();
+        return Response::json($todayOrder);
+    }
+
     /**
      * Display the specified resource.
      */
@@ -73,13 +78,7 @@ class OrderController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -96,4 +95,6 @@ class OrderController extends Controller
     {
         //
     }
+
+
 }
