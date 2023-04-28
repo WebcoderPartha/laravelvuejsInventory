@@ -63,7 +63,7 @@
                     <td>{{ order.pay_by }}</td>
                     <td>{{ order.total }}</td>
                     <td>
-                      <a class="btn btn-sm btn-primary" ><i class="fa fa-eye"></i></a>
+                      <router-link :to="{name:'order_detail', params:{id:order.id}}" class="btn btn-sm btn-primary" ><i class="fa fa-eye"></i></router-link>
                     </td>
                   </tr>
                   </tbody>

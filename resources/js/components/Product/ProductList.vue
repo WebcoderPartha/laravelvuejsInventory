@@ -40,7 +40,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered" v-if="products.length > 0">
+                <table class="table table-bordered">
                   <thead>
                   <tr>
                     <th style="width: 10px">Code</th>
@@ -75,7 +75,7 @@
                   </tr>
                   </tbody>
                 </table>
-                <h3 class="text-center" v-else>No data found!</h3>
+<!--                <h3 class="text-center" v-else>No data found!</h3>-->
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">

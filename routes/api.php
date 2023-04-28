@@ -50,6 +50,7 @@ Route::middleware(['jwtAuth','throttle:500,1'])->group(function (){
     Route::apiResource('/order',OrderController::class);
 
     Route::get('/todayorder', [OrderController::class, 'todayOrder']);
+    Route::get('/orderdetail/{id}', [OrderController::class, 'orderDetails']);
 
 
 

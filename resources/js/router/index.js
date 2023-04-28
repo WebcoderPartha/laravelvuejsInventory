@@ -155,6 +155,11 @@ const router = createRouter({
             component:()=> import('../components/Order/TodayOrder.vue')
         },
         {
+            path: '/order/details/:id',
+            name: 'order_detail',
+            component:()=> import('../components/Order/OrderDetail.vue')
+        },
+        {
             path: '/order/list',
             name: 'order_list',
             component:()=> import('../components/Order/OrderList.vue')

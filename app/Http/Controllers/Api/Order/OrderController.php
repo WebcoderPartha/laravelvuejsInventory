@@ -70,6 +70,12 @@ class OrderController extends Controller
         return Response::json($todayOrder);
     }
 
+
+    public function orderDetails(string $id){
+        $order = Order::with('customer', 'order_detail')->where('id', $id)->first();
+        return Response::json($order);
+    }
+
     /**
      * Display the specified resource.
      */
